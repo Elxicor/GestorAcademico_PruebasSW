@@ -1,0 +1,26 @@
+name: student_companion
+description: "A Flutter app for students to manage tasks and stay organized"
+publish_to: 'none'
+
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.10.7 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  shared_preferences: ^2.2.2
+  # Remove file_picker and share_plus for now - they're causing issues
+  cupertino_icons: ^1.0.6
+  flutter_local_notifications: ^17.1.2
+  timezone: ^0.9.3
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true
