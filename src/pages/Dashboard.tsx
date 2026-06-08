@@ -39,7 +39,7 @@ export default function Dashboard() {
         setStreak(loadedStreak);
       } catch (error) {
         console.error('Error loading initial data:', error);
-        setError('Failed to load data. Please try refreshing the page.');
+        setError('Error al cargar los datos. Por favor intenta recargar la página.');
       } finally {
         setIsLoading(false);
       }
@@ -123,7 +123,7 @@ export default function Dashboard() {
       <div className="flex justify-between items-center mb-8">
         <div className="flex items-center gap-3">
           <GraduationCap className="text-indigo-600" size={28} />
-          <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
+          <h1 className="text-2xl font-bold text-gray-900">Inicio</h1>
         </div>
         <FocusMode isStudyActive={isStudyActive} />
       </div>
@@ -140,9 +140,9 @@ export default function Dashboard() {
               value={selectedSubject}
               onChange={(e) => setSelectedSubject(e.target.value)}
               className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500 mb-4"
-              aria-label="Select study subject"
+              aria-label="Seleccionar materia de estudio"
             >
-              <option value="">General Study</option>
+              <option value="">Estudio General</option>
               {subjects?.map(subject => (
                 <option key={subject.id} value={subject.name}>
                   {subject.name}

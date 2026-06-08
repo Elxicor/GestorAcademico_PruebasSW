@@ -11,13 +11,13 @@ export default function Navbar() {
 
   const handleLogout = () => {
     logout();
-    toast.success('Logged out successfully');
+    toast.success('Sesión cerrada exitosamente');
   };
   
   return (
     <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-4 py-2 z-30 md:top-0 md:bottom-auto md:right-auto md:h-screen md:w-64 md:border-t-0 md:border-r">
       <div className="hidden md:flex md:items-center md:h-20 md:px-4">
-        <h1 className="text-2xl font-bold text-indigo-600">StudyMate</h1>
+        <h1 className="text-2xl font-bold text-indigo-600">GestorAcadémico</h1>
       </div>
 
       {user && (
@@ -28,12 +28,12 @@ export default function Navbar() {
       )}
 
       <ul className="flex justify-around md:flex-col md:space-y-2 md:mt-8">
-        <NavItem to="/" icon={<Home />} label="Dashboard" isActive={isActive('/')} />
-        <NavItem to="/tasks" icon={<CheckSquare />} label="Tasks" isActive={isActive('/tasks')} />
-        <NavItem to="/subjects" icon={<Book />} label="Subjects" isActive={isActive('/subjects')} />
-        <NavItem to="/analytics" icon={<BarChart2 />} label="Analytics" isActive={isActive('/analytics')} />
-        <NavItem to="/ai-assistant" icon={<Bot />} label="AI Assistant" isActive={isActive('/ai-assistant')} />
-        <NavItem to="/profile" icon={<User />} label="Profile" isActive={isActive('/profile')} />
+        <NavItem to="/" icon={<Home />} label="Inicio" isActive={isActive('/')} />
+        <NavItem to="/tasks" icon={<CheckSquare />} label="Tareas" isActive={isActive('/tasks')} />
+        <NavItem to="/subjects" icon={<Book />} label="Materias" isActive={isActive('/subjects')} />
+        <NavItem to="/analytics" icon={<BarChart2 />} label="Estadísticas" isActive={isActive('/analytics')} />
+        <NavItem to="/ai-assistant" icon={<Bot />} label="Asistente IA" isActive={isActive('/ai-assistant')} />
+        <NavItem to="/profile" icon={<User />} label="Perfil" isActive={isActive('/profile')} />
       </ul>
 
       {user && (
@@ -43,7 +43,7 @@ export default function Navbar() {
             className="flex items-center gap-3 w-full p-3 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
           >
             <LogOut />
-            <span>Logout</span>
+            <span>Cerrar Sesión</span>
           </button>
         </div>
       )}

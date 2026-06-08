@@ -129,7 +129,7 @@ export default function PomodoroTimer({ onSessionComplete, onStart, onStop }: Po
         }, 500);
       });
     } catch (error) {
-      toast.success('Timer completed!');
+      toast.success('¡Temporizador completado!');
     }
   };
 
@@ -160,32 +160,32 @@ export default function PomodoroTimer({ onSessionComplete, onStart, onStop }: Po
       if (newCompletedSessions % settings.sessionsUntilLongBreak === 0) {
         setTime(settings.longBreakMinutes * 60);
         playSound('work-complete');
-        showNotification('Time for a Long Break! 🎉', `Great job! You've completed ${settings.sessionsUntilLongBreak} work sessions.`);
+        showNotification('¡Hora de un Descanso Largo! 🎉', `¡Excelente trabajo! Has completado ${settings.sessionsUntilLongBreak} sesiones de trabajo.`);
         toast.success(
           <div>
-            <p className="font-medium">Time for a long break!</p>
-            <p className="text-sm">You've earned it! 🎉</p>
+            <p className="font-medium">¡Hora de un descanso largo!</p>
+            <p className="text-sm">¡Te lo has ganado! 🎉</p>
           </div>
         );
       } else {
         setTime(settings.breakMinutes * 60);
         playSound('work-complete');
-        showNotification('Break Time! ☕', 'Well done! Take a short break.');
+        showNotification('¡Hora del Descanso! ☕', '¡Bien hecho! Toma un descanso corto.');
         toast.success(
           <div>
-            <p className="font-medium">Great work!</p>
-            <p className="text-sm">Time for a short break ☕</p>
+            <p className="font-medium">¡Buen trabajo!</p>
+            <p className="text-sm">Hora de un descanso corto ☕</p>
           </div>
         );
       }
     } else {
       setTime(settings.workMinutes * 60);
       playSound('break-complete');
-      showNotification('Back to Work! 💪', 'Break is over. Let\'s get back to it!');
+      showNotification('¡De Vuelta al Trabajo! 💪', '¡El descanso terminó. Volvamos a ello!');
       toast.success(
         <div>
-          <p className="font-medium">Break is over</p>
-          <p className="text-sm">Let's get back to work! 💪</p>
+          <p className="font-medium">El descanso terminó</p>
+          <p className="text-sm">¡Volvamos al trabajo! 💪</p>
         </div>
       );
     }
@@ -233,11 +233,11 @@ export default function PomodoroTimer({ onSessionComplete, onStart, onStop }: Po
         };
         setFullProfile(updatedProfile);
         await setToStorage('profile', updatedProfile);
-        toast.success('Settings saved to profile!');
+        toast.success('¡Configuración guardada en el perfil!');
       }
     } catch (error) {
       console.error("Error saving timer settings", error);
-      toast.error('Failed to sync settings remotely');
+      toast.error('Error al sincronizar la configuración');
     }
   };
 
@@ -273,23 +273,23 @@ export default function PomodoroTimer({ onSessionComplete, onStart, onStop }: Po
     <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-100">
       <div className="flex justify-between items-center mb-6">
         <h3 className="text-lg font-semibold">
-          {isWorkPeriod ? 'Work Time' : 'Break Time'}
+          {isWorkPeriod ? 'Tiempo de Trabajo' : 'Tiempo de Descanso'}
         </h3>
         <div className="flex items-center gap-2">
           <button
             onClick={() => {
               setSoundEnabled(!soundEnabled);
-              toast.success(`Sound ${!soundEnabled ? 'enabled' : 'disabled'}`);
+              toast.success(`Sonido ${!soundEnabled ? 'activado' : 'desactivado'}`);
             }}
             className="p-2 text-gray-500 hover:text-gray-700 rounded-lg hover:bg-gray-100"
-            aria-label={soundEnabled ? 'Disable sound' : 'Enable sound'}
+            aria-label={soundEnabled ? 'Desactivar sonido' : 'Activar sonido'}
           >
             {soundEnabled ? <Volume2 size={20} /> : <VolumeX size={20} />}
           </button>
           <button
             onClick={() => setShowSettings(!showSettings)}
             className="p-2 text-gray-500 hover:text-gray-700 rounded-lg hover:bg-gray-100"
-            aria-label={showSettings ? 'Hide settings' : 'Show settings'}
+            aria-label={showSettings ? 'Ocultar configuración' : 'Mostrar configuración'}
           >
             <Settings size={20} />
           </button>
@@ -300,7 +300,7 @@ export default function PomodoroTimer({ onSessionComplete, onStart, onStop }: Po
         <div className="space-y-4">
           <div>
             <label htmlFor="workMinutes" className="block text-sm font-medium text-gray-700 mb-1">
-              Work Duration (minutes)
+              Duración del Trabajo (minutos)
             </label>
             <input
               id="workMinutes"
@@ -317,7 +317,7 @@ export default function PomodoroTimer({ onSessionComplete, onStart, onStop }: Po
           </div>
           <div>
             <label htmlFor="breakMinutes" className="block text-sm font-medium text-gray-700 mb-1">
-              Break Duration (minutes)
+              Duración del Descanso (minutos)
             </label>
             <input
               id="breakMinutes"
@@ -334,7 +334,7 @@ export default function PomodoroTimer({ onSessionComplete, onStart, onStop }: Po
           </div>
           <div>
             <label htmlFor="longBreakMinutes" className="block text-sm font-medium text-gray-700 mb-1">
-              Long Break Duration (minutes)
+              Descanso Largo (minutos)
             </label>
             <input
               id="longBreakMinutes"
@@ -353,7 +353,7 @@ export default function PomodoroTimer({ onSessionComplete, onStart, onStop }: Po
             onClick={handleSaveSettings}
             className="w-full px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700"
           >
-            Save Settings
+            Guardar Configuración
           </button>
         </div>
       ) : (
@@ -370,21 +370,21 @@ export default function PomodoroTimer({ onSessionComplete, onStart, onStop }: Po
                   ? 'bg-red-100 text-red-600 hover:bg-red-200' 
                   : 'bg-green-100 text-green-600 hover:bg-green-200'
               }`}
-              aria-label={isActive ? 'Pause timer' : 'Start timer'}
+              aria-label={isActive ? 'Pausar temporizador' : 'Iniciar temporizador'}
             >
               {isActive ? <Pause size={24} /> : <Play size={24} />}
             </button>
             <button
               onClick={resetTimer}
               className="p-4 rounded-full bg-gray-100 text-gray-600 hover:bg-gray-200"
-              aria-label="Reset timer"
+              aria-label="Reiniciar temporizador"
             >
               <RotateCcw size={24} />
             </button>
           </div>
 
           <div className="mt-6 text-center text-sm text-gray-500">
-            Session {completedSessions % settings.sessionsUntilLongBreak + 1} of {settings.sessionsUntilLongBreak}
+            Sesión {completedSessions % settings.sessionsUntilLongBreak + 1} de {settings.sessionsUntilLongBreak}
           </div>
         </>
       )}

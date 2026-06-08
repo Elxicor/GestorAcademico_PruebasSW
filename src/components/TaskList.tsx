@@ -67,7 +67,7 @@ export default function TaskList({ tasks, onTaskComplete, onDeleteTask, onEditTa
   };
 
   const handleDeleteTask = async (taskId: string) => {
-    if (!window.confirm('Are you sure you want to delete this task?')) return;
+    if (!window.confirm('¿Estás seguro de que deseas eliminar esta tarea?')) return;
 
     try {
       setIsDeleting(taskId);
@@ -81,19 +81,19 @@ export default function TaskList({ tasks, onTaskComplete, onDeleteTask, onEditTa
       
       toast.success(
         <div className="flex items-center space-x-2">
-          <span>Task deleted</span>
+          <span>Tarea eliminada</span>
           <button
             onClick={() => handleUndoBulkDelete()}
             className="px-2 py-1 text-sm bg-white rounded-md shadow-sm hover:bg-gray-50"
           >
-            Undo
+            Deshacer
           </button>
         </div>,
         { duration: 5000 }
       );
     } catch (error) {
       console.error('Error deleting task:', error);
-      toast.error(error instanceof Error ? error.message : 'Failed to delete task');
+      toast.error(error instanceof Error ? error.message : 'Error al eliminar la tarea');
     } finally {
       setIsDeleting(null);
     }
@@ -103,7 +103,7 @@ export default function TaskList({ tasks, onTaskComplete, onDeleteTask, onEditTa
     try {
       const tasksToDelete = tasks.filter(task => selectedTasks.has(task.id));
       if (tasksToDelete.length === 0) {
-        toast.error('No tasks selected');
+        toast.error('No hay tareas seleccionadas');
         return;
       }
 
@@ -114,12 +114,12 @@ export default function TaskList({ tasks, onTaskComplete, onDeleteTask, onEditTa
       
       toast.success(
         <div className="flex items-center space-x-2">
-          <span>{selectedTasks.size} tasks deleted</span>
+          <span>{selectedTasks.size} tareas eliminadas</span>
           <button
             onClick={handleUndoBulkDelete}
             className="px-2 py-1 text-sm bg-white rounded-md shadow-sm hover:bg-gray-50"
           >
-            Undo
+            Deshacer
           </button>
         </div>,
         { duration: 5000 }
@@ -128,7 +128,7 @@ export default function TaskList({ tasks, onTaskComplete, onDeleteTask, onEditTa
       setSelectedTasks(new Set());
     } catch (error) {
       console.error('Error deleting tasks:', error);
-      toast.error(error instanceof Error ? error.message : 'Failed to delete tasks');
+      toast.error(error instanceof Error ? error.message : 'Error al eliminar las tareas');
     }
   };
 
@@ -138,11 +138,11 @@ export default function TaskList({ tasks, onTaskComplete, onDeleteTask, onEditTa
     try {
       // Restore all deleted tasks
       await Promise.all(deletedTasks.map(task => onTaskCreate(task)));
-      toast.success(`${deletedTasks.length} task${deletedTasks.length > 1 ? 's' : ''} restored`);
+      toast.success(`${deletedTasks.length} tarea${deletedTasks.length > 1 ? 's' : ''} restaurada${deletedTasks.length > 1 ? 's' : ''}`);
       setDeletedTasks([]);
     } catch (error) {
       console.error('Error restoring tasks:', error);
-      toast.error(error instanceof Error ? error.message : 'Failed to restore tasks');
+      toast.error(error instanceof Error ? error.message : 'Error al restaurar las tareas');
     }
   };
 
@@ -176,14 +176,14 @@ export default function TaskList({ tasks, onTaskComplete, onDeleteTask, onEditTa
               className="w-4 h-4 text-blue-600"
             />
             <span className="text-sm text-gray-600 dark:text-gray-300">
-              {selectedTasks.size} selected
+              {selectedTasks.size} seleccionadas
             </span>
           </div>
           <button
             onClick={handleBulkDelete}
             className="px-3 py-1 text-sm text-white bg-red-500 hover:bg-red-600 rounded-md"
           >
-            Delete Selected
+            Eliminar Seleccionadas
           </button>
         </div>
       )}
@@ -195,19 +195,19 @@ export default function TaskList({ tasks, onTaskComplete, onDeleteTask, onEditTa
             onClick={() => toggleSort('subject')}
             className="flex items-center gap-1 text-sm font-medium text-gray-600 hover:text-gray-900"
           >
-            Subject <SortIcon field="subject" />
+            Materia <SortIcon field="subject" />
           </button>
           <button
             onClick={() => toggleSort('dueDate')}
             className="flex items-center gap-1 text-sm font-medium text-gray-600 hover:text-gray-900"
           >
-            Due Date <SortIcon field="dueDate" />
+            Fecha Límite <SortIcon field="dueDate" />
           </button>
           <button
             onClick={() => toggleSort('priority')}
             className="flex items-center gap-1 text-sm font-medium text-gray-600 hover:text-gray-900"
           >
-            Priority <SortIcon field="priority" />
+            Prioridad <SortIcon field="priority" />
           </button>
         </div>
 

@@ -51,7 +51,7 @@ export default function Tasks() {
     try {
       await apiUpdateTask(taskId, { completed: !task.completed });
     } catch (error) {
-      toast.error('Failed to update task status');
+      toast.error('Error al actualizar el estado de la tarea');
       setTasks(tasks.map(t => t.id === taskId ? { ...t, completed: task.completed } : t));
     }
   };
@@ -65,9 +65,9 @@ export default function Tasks() {
         completed: false,
       };
       setTasks([...tasks, newTask]);
-      toast.success('Task created successfully');
+      toast.success('Tarea creada exitosamente');
     } catch (error) {
-      toast.error('Failed to create task');
+      toast.error('Error al crear la tarea');
     }
   };
 
@@ -84,9 +84,9 @@ export default function Tasks() {
           ? { ...task, ...taskData, completed: task.completed }
           : task
       ));
-      toast.success('Task updated successfully');
+      toast.success('Tarea actualizada exitosamente');
     } catch (error) {
-      toast.error('Failed to update task');
+      toast.error('Error al actualizar la tarea');
     }
   };
 
@@ -99,18 +99,18 @@ export default function Tasks() {
     try {
       await apiDeleteTask(taskId);
       setTasks(tasks.filter(task => task.id !== taskId));
-      toast.success('Task deleted');
+      toast.success('Tarea eliminada');
     } catch (error) {
-      toast.error('Failed to delete task');
+      toast.error('Error al eliminar la tarea');
     }
   };
 
-  if (isLoading) return <div className="p-8 text-center">Loading tasks...</div>;
+  if (isLoading) return <div className="p-8 text-center">Cargando tareas...</div>;
 
   return (
     <div className="max-w-4xl mx-auto p-4">
       <div className="flex justify-between items-center mb-8">
-        <h1 className="text-2xl font-bold text-gray-900">Tasks</h1>
+        <h1 className="text-2xl font-bold text-gray-900">Tareas</h1>
         <button
           onClick={() => {
             setEditingTask(null);
@@ -119,7 +119,7 @@ export default function Tasks() {
           className="bg-indigo-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-indigo-700 transition-colors"
         >
           <Plus size={20} />
-          New Task
+          Nueva Tarea
         </button>
       </div>
 

@@ -23,7 +23,7 @@ export default function TaskForm({ onSubmit, onClose, initialData, subjects = []
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.title || !formData.dueDate) {
-      toast.error('Please fill in all required fields');
+      toast.error('Por favor completa todos los campos requeridos');
       return;
     }
 
@@ -42,7 +42,7 @@ export default function TaskForm({ onSubmit, onClose, initialData, subjects = []
       <div className="bg-white rounded-xl max-w-md w-full p-6">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-xl font-semibold">
-            {initialData ? 'Edit Task' : 'New Task'}
+            {initialData ? 'Editar Tarea' : 'Nueva Tarea'}
           </h2>
           <button onClick={onClose} className="text-gray-500 hover:text-gray-700">
             <X size={20} />
@@ -52,34 +52,34 @@ export default function TaskForm({ onSubmit, onClose, initialData, subjects = []
         <form onSubmit={handleSubmit} className="space-y-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Title *
+              Título *
             </label>
             <input
               type="text"
               value={formData.title}
               onChange={e => setFormData(prev => ({ ...prev, title: e.target.value }))}
               className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
-              placeholder="Enter task title"
+              placeholder="Ingresa el título de la tarea"
             />
           </div>
 
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Description
+              Descripción
             </label>
             <textarea
               value={formData.description}
               onChange={e => setFormData(prev => ({ ...prev, description: e.target.value }))}
               className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
               rows={3}
-              placeholder="Enter task description"
+              placeholder="Ingresa la descripción de la tarea"
             />
           </div>
 
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Due Date *
+                Fecha Límite *
               </label>
               <input
                 type="date"
@@ -91,16 +91,16 @@ export default function TaskForm({ onSubmit, onClose, initialData, subjects = []
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Priority
+                Prioridad
               </label>
               <select
                 value={formData.priority}
                 onChange={e => setFormData(prev => ({ ...prev, priority: e.target.value as Task['priority'] }))}
                 className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
               >
-                <option value="low">Low</option>
-                <option value="medium">Medium</option>
-                <option value="high">High</option>
+                <option value="low">Baja</option>
+                <option value="medium">Media</option>
+                <option value="high">Alta</option>
               </select>
             </div>
           </div>
@@ -108,7 +108,7 @@ export default function TaskForm({ onSubmit, onClose, initialData, subjects = []
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Subject
+                Materia
               </label>
               <select
                 value={formData.subject}
@@ -125,7 +125,7 @@ export default function TaskForm({ onSubmit, onClose, initialData, subjects = []
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Estimated Time (minutes)
+                Tiempo Estimado (minutos)
               </label>
               <input
                 type="number"
@@ -146,13 +146,13 @@ export default function TaskForm({ onSubmit, onClose, initialData, subjects = []
               onClick={onClose}
               className="px-4 py-2 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200"
             >
-              Cancel
+              Cancelar
             </button>
             <button
               type="submit"
               className="px-4 py-2 text-white bg-indigo-600 rounded-lg hover:bg-indigo-700"
             >
-              {initialData ? 'Update Task' : 'Create Task'}
+              {initialData ? 'Actualizar Tarea' : 'Crear Tarea'}
             </button>
           </div>
         </form>

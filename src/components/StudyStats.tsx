@@ -74,7 +74,7 @@ export default function StudyStats({ sessions, subjects }: StudyStatsProps) {
       <div className="flex items-center justify-between mb-6">
         <div className="flex items-center gap-2">
           <BarChart2 className="text-indigo-600" />
-          <h3 className="font-semibold">Study Statistics</h3>
+          <h3 className="font-semibold">Estadísticas de Estudio</h3>
         </div>
         <div className="flex items-center gap-4">
           <select
@@ -82,16 +82,16 @@ export default function StudyStats({ sessions, subjects }: StudyStatsProps) {
             onChange={(e) => setTimeframe(e.target.value as 'week' | 'month' | 'all')}
             className="px-3 py-1 border rounded-lg text-sm"
           >
-            <option value="week">This Week</option>
-            <option value="month">This Month</option>
-            <option value="all">All Time</option>
+            <option value="week">Esta Semana</option>
+            <option value="month">Este Mes</option>
+            <option value="all">Todo el Tiempo</option>
           </select>
           <button
             onClick={exportStats}
             className="flex items-center gap-2 px-3 py-1 text-sm text-indigo-600 hover:text-indigo-700"
           >
             <Download size={16} />
-            Export
+            Exportar
           </button>
         </div>
       </div>

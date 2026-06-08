@@ -16,19 +16,19 @@ export default function Signup() {
 
   const validateForm = () => {
     if (!name.trim()) {
-      toast.error('Please enter your name');
+      toast.error('Por favor ingresa tu nombre');
       return false;
     }
     if (!email.trim()) {
-      toast.error('Please enter your email');
+      toast.error('Por favor ingresa tu correo');
       return false;
     }
     if (password.length < 6) {
-      toast.error('Password must be at least 6 characters');
+      toast.error('La contraseña debe tener al menos 6 caracteres');
       return false;
     }
     if (password !== confirmPassword) {
-      toast.error('Passwords do not match');
+      toast.error('Las contraseñas no coinciden');
       return false;
     }
     return true;
@@ -43,7 +43,7 @@ export default function Signup() {
 
     try {
       await signup(email, password, name);
-      toast.success('Account created! Please check your email to verify your account.');
+      toast.success('¡Cuenta creada! Por favor revisa tu correo para verificar tu cuenta.');
       navigate('/login');
     } catch (error) {
       console.error('Signup error:', error);
@@ -57,19 +57,19 @@ export default function Signup() {
       <div className="max-w-md w-full space-y-8">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Create your account
+            Crea tu cuenta
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600">
-            Or{' '}
+            O{' '}
             <Link to="/login" className="font-medium text-indigo-600 hover:text-indigo-500">
-              sign in to your account
+              inicia sesión en tu cuenta
             </Link>
           </p>
         </div>
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           <div className="rounded-md shadow-sm space-y-4">
             <div>
-              <label htmlFor="name" className="sr-only">Full name</label>
+              <label htmlFor="name" className="sr-only">Nombre completo</label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <User className="h-5 w-5 text-gray-400" />
@@ -82,12 +82,12 @@ export default function Signup() {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   className="appearance-none relative block w-full px-3 py-2 pl-10 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                  placeholder="Full name"
+                  placeholder="Nombre completo"
                 />
               </div>
             </div>
             <div>
-              <label htmlFor="email" className="sr-only">Email address</label>
+              <label htmlFor="email" className="sr-only">Correo electrónico</label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <Mail className="h-5 w-5 text-gray-400" />
@@ -101,12 +101,12 @@ export default function Signup() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="appearance-none relative block w-full px-3 py-2 pl-10 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                  placeholder="Email address"
+                  placeholder="Correo electrónico"
                 />
               </div>
             </div>
             <div>
-              <label htmlFor="password" className="sr-only">Password</label>
+              <label htmlFor="password" className="sr-only">Contraseña</label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <Lock className="h-5 w-5 text-gray-400" />
@@ -119,7 +119,7 @@ export default function Signup() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className="appearance-none relative block w-full px-3 py-2 pl-10 pr-10 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                  placeholder="Password"
+                  placeholder="Contraseña"
                 />
                 <button
                   type="button"
@@ -135,7 +135,7 @@ export default function Signup() {
               </div>
             </div>
             <div>
-              <label htmlFor="confirmPassword" className="sr-only">Confirm Password</label>
+              <label htmlFor="confirmPassword" className="sr-only">Confirmar Contraseña</label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <Lock className="h-5 w-5 text-gray-400" />
@@ -148,7 +148,7 @@ export default function Signup() {
                   value={confirmPassword}
                   onChange={(e) => setConfirmPassword(e.target.value)}
                   className="appearance-none relative block w-full px-3 py-2 pl-10 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                  placeholder="Confirm password"
+                  placeholder="Confirmar contraseña"
                 />
               </div>
             </div>
@@ -163,7 +163,7 @@ export default function Signup() {
               <span className="absolute left-0 inset-y-0 flex items-center pl-3">
                 <UserPlus className="h-5 w-5 text-indigo-500 group-hover:text-indigo-400" />
               </span>
-              {isLoading ? 'Creating account...' : 'Sign up'}
+              {isLoading ? 'Creando cuenta...' : 'Registrarse'}
             </button>
           </div>
         </form>

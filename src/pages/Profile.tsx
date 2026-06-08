@@ -57,7 +57,7 @@ export default function Profile() {
         setProfile(loadedProfile);
       } catch (error) {
         console.error('Error loading profile:', error);
-        setError('Failed to load profile. Please try refreshing the page.');
+        setError('Error al cargar el perfil. Por favor intenta recargar la página.');
       } finally {
         setIsLoading(false);
       }
@@ -82,10 +82,10 @@ export default function Profile() {
   const handleSave = async () => {
     try {
       await setToStorage('profile', profile);
-      toast.success('Profile updated successfully');
+      toast.success('Perfil actualizado exitosamente');
     } catch (error) {
       console.error('Error saving profile:', error);
-      toast.error('Failed to save profile');
+      toast.error('Error al guardar el perfil');
     }
   };
 
@@ -103,7 +103,7 @@ export default function Profile() {
 
   return (
     <div className="max-w-4xl mx-auto p-4">
-      <h1 className="text-2xl font-bold text-gray-900 mb-8">Student Profile</h1>
+      <h1 className="text-2xl font-bold text-gray-900 mb-8">Perfil del Estudiante</h1>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Profile Info */}
@@ -140,7 +140,7 @@ export default function Profile() {
                   type="text"
                   value={profile.name}
                   onChange={e => setProfile(prev => ({ ...prev, name: e.target.value }))}
-                  placeholder="Your Name"
+                  placeholder="Tu Nombre"
                   className="w-full text-xl font-semibold mb-2 px-3 py-2 border rounded-lg"
                 />
                 <input
@@ -157,18 +157,18 @@ export default function Profile() {
             <textarea
               value={profile.bio}
               onChange={e => setProfile(prev => ({ ...prev, bio: e.target.value }))}
-              placeholder="Tell us about yourself..."
+              placeholder="Cuéntanos sobre ti..."
               className="w-full h-32 px-3 py-2 border rounded-lg resize-none"
             />
           </div>
 
           {/* Study Preferences */}
           <div className="bg-white p-6 rounded-xl shadow-sm border">
-            <h2 className="text-lg font-semibold mb-4">Study Preferences</h2>
+            <h2 className="text-lg font-semibold mb-4">Preferencias de Estudio</h2>
             <div className="space-y-4">
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Preferred Study Time
+                  Horario de Estudio Preferido
                 </label>
                 <select
                   value={profile.studyPreferences?.preferredStudyTime || 'morning'}
@@ -181,17 +181,17 @@ export default function Profile() {
                   }))}
                   className="w-full px-3 py-2 border rounded-lg"
                 >
-                  <option value="morning">Morning</option>
-                  <option value="afternoon">Afternoon</option>
-                  <option value="evening">Evening</option>
-                  <option value="night">Night</option>
+                  <option value="morning">Mañana</option>
+                  <option value="afternoon">Tarde</option>
+                  <option value="evening">Noche</option>
+                  <option value="night">Madrugada</option>
                 </select>
               </div>
 
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Focus Session (minutes)
+                    Sesión de Enfoque (minutos)
                   </label>
                   <input
                     type="number"
@@ -211,7 +211,7 @@ export default function Profile() {
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Break Duration (minutes)
+                    Duración del Descanso (minutos)
                   </label>
                   <input
                     type="number"
@@ -232,7 +232,7 @@ export default function Profile() {
 
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                  Daily Study Goal (hours)
+                  Meta Diaria de Estudio (horas)
                 </label>
                 <input
                   type="number"
@@ -253,7 +253,7 @@ export default function Profile() {
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <Bell size={20} className="text-gray-500" />
-                  <span className="text-sm font-medium text-gray-700">Notifications</span>
+                  <span className="text-sm font-medium text-gray-700">Notificaciones</span>
                 </div>
                 <label className="relative inline-flex items-center cursor-pointer">
                   <input
@@ -275,7 +275,7 @@ export default function Profile() {
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <Volume2 size={20} className="text-gray-500" />
-                  <span className="text-sm font-medium text-gray-700">Sound Effects</span>
+                  <span className="text-sm font-medium text-gray-700">Efectos de Sonido</span>
                 </div>
                 <label className="relative inline-flex items-center cursor-pointer">
                   <input
@@ -301,13 +301,13 @@ export default function Profile() {
             className="w-full flex items-center justify-center gap-2 bg-indigo-600 text-white px-4 py-2 rounded-lg hover:bg-indigo-700 transition-colors"
           >
             <Save size={20} />
-            Save Changes
+            Guardar Cambios
           </button>
         </div>
 
         {/* Achievements */}
         <div className="bg-white p-6 rounded-xl shadow-sm border h-fit">
-          <h2 className="text-lg font-semibold mb-4">Achievements</h2>
+          <h2 className="text-lg font-semibold mb-4">Logros</h2>
           <div className="space-y-4">
             {profile.achievements && profile.achievements.map((achievement, index) => (
               <div key={index} className="flex items-start gap-3">
@@ -319,7 +319,7 @@ export default function Profile() {
               </div>
             ))}
             {(!profile.achievements || profile.achievements.length === 0) && (
-              <p className="text-gray-500 text-sm">No achievements yet. Keep studying!</p>
+              <p className="text-gray-500 text-sm">Aún no hay logros. ¡Sigue estudiando!</p>
             )}
           </div>
         </div>

@@ -15,7 +15,7 @@ export default function Login() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!email.trim() || !password.trim()) {
-      toast.error('Please enter both email and password');
+      toast.error('Por favor ingresa tu correo y contraseña');
       return;
     }
     
@@ -23,7 +23,7 @@ export default function Login() {
 
     try {
       await login(email, password);
-      toast.success('Welcome back!');
+      toast.success('¡Bienvenido de nuevo!');
       navigate('/');
     } catch (error) {
       console.error('Login error:', error);
@@ -34,7 +34,7 @@ export default function Login() {
 
   const handleResetPassword = async () => {
     if (!email.trim()) {
-      toast.error('Please enter your email address');
+      toast.error('Por favor ingresa tu correo electrónico');
       return;
     }
 
@@ -50,19 +50,19 @@ export default function Login() {
       <div className="max-w-md w-full space-y-8">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Welcome back
+            Bienvenido de nuevo
           </h2>
           <p className="mt-2 text-center text-sm text-gray-600">
-            Or{' '}
+            O{' '}
             <Link to="/signup" className="font-medium text-indigo-600 hover:text-indigo-500">
-              create a new account
+              crea una nueva cuenta
             </Link>
           </p>
         </div>
         <form className="mt-8 space-y-6" onSubmit={handleSubmit}>
           <div className="rounded-md shadow-sm space-y-4">
             <div>
-              <label htmlFor="email" className="sr-only">Email address</label>
+              <label htmlFor="email" className="sr-only">Correo electrónico</label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <Mail className="h-5 w-5 text-gray-400" />
@@ -76,12 +76,12 @@ export default function Login() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="appearance-none relative block w-full px-3 py-2 pl-10 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                  placeholder="Email address"
+                  placeholder="Correo electrónico"
                 />
               </div>
             </div>
             <div>
-              <label htmlFor="password" className="sr-only">Password</label>
+              <label htmlFor="password" className="sr-only">Contraseña</label>
               <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                   <Lock className="h-5 w-5 text-gray-400" />
@@ -95,7 +95,7 @@ export default function Login() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   className="appearance-none relative block w-full px-3 py-2 pl-10 pr-10 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 focus:z-10 sm:text-sm"
-                  placeholder="Password"
+                  placeholder="Contraseña"
                 />
                 <button
                   type="button"
@@ -119,7 +119,7 @@ export default function Login() {
                 onClick={handleResetPassword}
                 className="font-medium text-indigo-600 hover:text-indigo-500"
               >
-                Forgot your password?
+                ¿Olvidaste tu contraseña?
               </button>
             </div>
           </div>
@@ -133,7 +133,7 @@ export default function Login() {
               <span className="absolute left-0 inset-y-0 flex items-center pl-3">
                 <LogIn className="h-5 w-5 text-indigo-500 group-hover:text-indigo-400" />
               </span>
-              {isLoading ? 'Signing in...' : 'Sign in'}
+              {isLoading ? 'Iniciando sesión...' : 'Iniciar sesión'}
             </button>
           </div>
         </form>

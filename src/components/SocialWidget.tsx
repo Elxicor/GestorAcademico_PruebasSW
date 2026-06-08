@@ -9,7 +9,7 @@ export default function SocialWidget() {
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="w-12 h-12 bg-indigo-600 text-white rounded-full flex items-center justify-center shadow-lg hover:bg-indigo-700 transition-all duration-300 hover:scale-110 active:scale-95"
-        aria-label="Open social links"
+        aria-label="Abrir enlaces sociales"
       >
         <Coffee
           className={`w-6 h-6 transition-transform duration-300 ${
@@ -37,7 +37,7 @@ export default function SocialWidget() {
               className="flex items-center gap-2 text-gray-700 hover:text-indigo-600 transition-all duration-300 hover:translate-x-1 group"
             >
               <Coffee className="w-5 h-5 transition-transform group-hover:rotate-12" />
-              <span>Buy me a coffee</span>
+              <span>Invítame un café</span>
             </a>
           </div>
         </div>

@@ -20,8 +20,8 @@ export default function FocusMode({ isStudyActive }: FocusModeProps) {
       // Set up focus mode reminder
       const interval = setInterval(() => {
         if ('Notification' in window && Notification.permission === 'granted') {
-          new Notification('Focus Mode Active', {
-            body: 'Stay focused on your studies!',
+          new Notification('Modo Enfoque Activo', {
+            body: '¡Mantén la concentración en tus estudios!',
             icon: '/favicon.ico'
           });
         }
@@ -34,7 +34,7 @@ export default function FocusMode({ isStudyActive }: FocusModeProps) {
 
   const toggleFocusMode = () => {
     if (!isFocusMode) {
-      toast.success('Focus mode activated');
+      toast.success('Modo enfoque activado');
     }
     setIsFocusMode(!isFocusMode);
   };
@@ -50,7 +50,7 @@ export default function FocusMode({ isStudyActive }: FocusModeProps) {
         }`}
       >
         <Focus size={20} />
-        Focus Mode
+        Modo Enfoque
       </button>
 
       {showNotification && (
@@ -58,9 +58,9 @@ export default function FocusMode({ isStudyActive }: FocusModeProps) {
           <div className="flex items-start gap-3">
             <BellRing className="text-indigo-600" />
             <div className="flex-1">
-              <h4 className="font-medium">Stay Focused!</h4>
+              <h4 className="font-medium">¡Mantén el Enfoque!</h4>
               <p className="text-sm text-gray-500">
-                Remember to maintain your concentration and avoid distractions.
+                Recuerda mantener tu concentración y evitar las distracciones.
               </p>
             </div>
             <button

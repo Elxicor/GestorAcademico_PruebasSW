@@ -61,9 +61,9 @@ export default function SubjectStats({ subject, sessions }: SubjectStatsProps) {
           onChange={(e) => setTimeframe(e.target.value as 'week' | 'month' | 'all')}
           className="px-3 py-1 text-sm border rounded-lg"
         >
-          <option value="week">This Week</option>
-          <option value="month">This Month</option>
-          <option value="all">All Time</option>
+          <option value="week">Esta Semana</option>
+          <option value="month">Este Mes</option>
+          <option value="all">Todo el Tiempo</option>
         </select>
       </div>
 
@@ -71,7 +71,7 @@ export default function SubjectStats({ subject, sessions }: SubjectStatsProps) {
         <div>
           <div className="flex items-center gap-2 text-gray-500 mb-2">
             <Clock size={16} />
-            <span className="text-sm">Total Time</span>
+            <span className="text-sm">Tiempo Total</span>
           </div>
           <p className="text-2xl font-bold">
             {Math.floor(totalHours)}h {Math.round((totalHours % 1) * 60)}m
@@ -81,7 +81,7 @@ export default function SubjectStats({ subject, sessions }: SubjectStatsProps) {
               trend > 0 ? 'text-green-600' : 'text-red-600'
             }`}>
               {trend > 0 ? <ArrowUp size={16} /> : <ArrowDown size={16} />}
-              {Math.abs(trend)} minutes
+              {Math.abs(trend)} minutos
             </div>
           )}
         </div>
@@ -89,11 +89,11 @@ export default function SubjectStats({ subject, sessions }: SubjectStatsProps) {
         <div>
           <div className="flex items-center gap-2 text-gray-500 mb-2">
             <Target size={16} />
-            <span className="text-sm">Goal Progress</span>
+            <span className="text-sm">Progreso de Meta</span>
           </div>
           <p className="text-2xl font-bold">{Math.round(goalProgress)}%</p>
           <div className="text-sm text-gray-500">
-            {subject.goalHoursPerWeek}h weekly goal
+            {subject.goalHoursPerWeek}h meta semanal
           </div>
         </div>
       </div>

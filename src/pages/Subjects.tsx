@@ -54,36 +54,36 @@ export default function Subjects() {
       id: crypto.randomUUID(),
     };
     setSubjects([...subjects, newSubject]);
-    toast.success('Subject added successfully');
+    toast.success('Materia añadida exitosamente');
   };
 
   const handleEditSubject = (id: string, subjectData: Omit<Subject, 'id'>) => {
     setSubjects(subjects.map(subject =>
       subject.id === id ? { ...subject, ...subjectData } : subject
     ));
-    toast.success('Subject updated successfully');
+    toast.success('Materia actualizada exitosamente');
   };
 
   const handleDeleteSubject = (id: string) => {
     setSubjects(subjects.filter(subject => subject.id !== id));
-    toast.success('Subject deleted successfully');
+    toast.success('Materia eliminada exitosamente');
   };
 
-  if (!isLoaded) return <div className="p-8 text-center">Loading subjects...</div>;
+  if (!isLoaded) return <div className="p-8 text-center">Cargando materias...</div>;
 
   return (
     <div className="max-w-4xl mx-auto p-4">
       <div className="flex justify-between items-center mb-8">
         <div className="flex items-center gap-3">
           <Book className="text-indigo-600" size={28} />
-          <h1 className="text-2xl font-bold text-gray-900">Subjects</h1>
+          <h1 className="text-2xl font-bold text-gray-900">Materias</h1>
         </div>
         <button
           onClick={() => setShowManager(true)}
           className="bg-indigo-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-indigo-700 transition-colors"
         >
           <Plus size={20} />
-          Manage Subjects
+          Gestionar Materias
         </button>
       </div>
 
@@ -108,7 +108,7 @@ export default function Subjects() {
                 <div className="flex items-center gap-2 text-gray-500">
                   <Clock size={16} />
                   <span className="text-sm">
-                    {weeklyHours.toFixed(1)} / {subject.goalHoursPerWeek}h this week
+                    {weeklyHours.toFixed(1)} / {subject.goalHoursPerWeek}h esta semana
                   </span>
                 </div>
               </div>
@@ -132,15 +132,15 @@ export default function Subjects() {
         {subjects.length === 0 && (
           <div className="text-center py-12 bg-white rounded-xl border border-gray-100">
             <Book className="mx-auto text-gray-400 mb-4" size={48} />
-            <h3 className="text-lg font-medium text-gray-900 mb-2">No subjects yet</h3>
+            <h3 className="text-lg font-medium text-gray-900 mb-2">Aún no hay materias</h3>
             <p className="text-gray-500 mb-4">
-              Add subjects to track your study progress
+              Añade materias para seguir tu progreso de estudio
             </p>
             <button
               onClick={() => setShowManager(true)}
               className="text-indigo-600 hover:text-indigo-700 font-medium"
             >
-              Add your first subject
+              Añadir tu primera materia
             </button>
           </div>
         )}

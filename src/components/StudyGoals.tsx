@@ -22,7 +22,7 @@ export default function StudyGoals({ goals, subjects, onAddGoal, onToggleGoal }:
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.subject) {
-      toast.error('Please select a subject');
+      toast.error('Por favor selecciona una materia');
       return;
     }
     onAddGoal(formData);
@@ -32,7 +32,7 @@ export default function StudyGoals({ goals, subjects, onAddGoal, onToggleGoal }:
       targetHours: 10,
       deadline: format(new Date().setDate(new Date().getDate() + 7), 'yyyy-MM-dd'),
     });
-    toast.success('Study goal added');
+    toast.success('Meta de estudio añadida');
   };
 
   return (
@@ -40,14 +40,14 @@ export default function StudyGoals({ goals, subjects, onAddGoal, onToggleGoal }:
       <div className="flex items-center justify-between">
         <h3 className="text-lg font-semibold flex items-center gap-2">
           <Target size={20} className="text-indigo-600" />
-          Study Goals
+          Metas de Estudio
         </h3>
         {!showForm && (
           <button
             onClick={() => setShowForm(true)}
             className="text-sm text-indigo-600 hover:text-indigo-700"
           >
-            + Add Goal
+            + Añadir Meta
           </button>
         )}
       </div>
@@ -56,14 +56,14 @@ export default function StudyGoals({ goals, subjects, onAddGoal, onToggleGoal }:
         <form onSubmit={handleSubmit} className="bg-white p-4 rounded-lg border space-y-4">
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-1">
-              Subject
+              Materia
             </label>
             <select
               value={formData.subject}
               onChange={e => setFormData(prev => ({ ...prev, subject: e.target.value }))}
               className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
             >
-              <option value="">Select a subject</option>
+              <option value="">Selecciona una materia</option>
               {subjects.map(subject => (
                 <option key={subject.id} value={subject.name}>
                   {subject.name}
@@ -75,7 +75,7 @@ export default function StudyGoals({ goals, subjects, onAddGoal, onToggleGoal }:
           <div className="grid grid-cols-2 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Target Hours
+                Horas Objetivo
               </label>
               <input
                 type="number"
@@ -90,7 +90,7 @@ export default function StudyGoals({ goals, subjects, onAddGoal, onToggleGoal }:
             </div>
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Deadline
+                Fecha Límite
               </label>
               <input
                 type="date"
@@ -108,13 +108,13 @@ export default function StudyGoals({ goals, subjects, onAddGoal, onToggleGoal }:
               onClick={() => setShowForm(false)}
               className="px-4 py-2 text-gray-700 bg-gray-100 rounded-lg hover:bg-gray-200"
             >
-              Cancel
+              Cancelar
             </button>
             <button
               type="submit"
               className="px-4 py-2 text-white bg-indigo-600 rounded-lg hover:bg-indigo-700"
             >
-              Add Goal
+              Añadir Meta
             </button>
           </div>
         </form>
@@ -139,10 +139,10 @@ export default function StudyGoals({ goals, subjects, onAddGoal, onToggleGoal }:
               </button>
               <div>
                 <h4 className={`font-medium ${goal.completed ? 'line-through text-gray-400' : ''}`}>
-                  {goal.subject} - {goal.targetHours} hours
+                  {goal.subject} - {goal.targetHours} horas
                 </h4>
                 <p className="text-sm text-gray-500">
-                  Due {format(new Date(goal.deadline), 'MMM d, yyyy')}
+                  Vence {format(new Date(goal.deadline), 'MMM d, yyyy')}
                 </p>
               </div>
             </div>

@@ -86,11 +86,11 @@ const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
 
 const validateFile = (file: File): boolean => {
   if (!ALLOWED_FILE_TYPES.includes(file.type)) {
-    toast.error('Invalid file type. Only PDF, DOCX, and TXT files are allowed.');
+    toast.error('Tipo de archivo inválido. Solo se permiten archivos PDF, DOCX y TXT.');
     return false;
   }
   if (file.size > MAX_FILE_SIZE) {
-    toast.error('File too large. Maximum size is 10MB.');
+    toast.error('Archivo demasiado grande. El tamaño máximo es 10MB.');
     return false;
   }
   return true;
@@ -105,7 +105,7 @@ const SpeechFeedback = ({ confidence, isRecording }: { confidence: number; isRec
       <div className="flex items-center space-x-2">
         <div className={`w-3 h-3 rounded-full ${isRecording ? 'bg-red-500 animate-pulse' : 'bg-gray-300'}`} />
         <span className="text-sm text-gray-600 dark:text-gray-300">
-          {isRecording ? 'Recording...' : 'Not Recording'}
+          {isRecording ? 'Grabando...' : 'Sin Grabar'}
         </span>
       </div>
       {isRecording && (
@@ -149,10 +149,10 @@ export default function AiAssistant() {
         recognition.current.continuous = true;
         recognition.current.interimResults = true;
         recognition.current.maxAlternatives = 3; // Get multiple alternatives
-        recognition.current.lang = 'en-US'; // Set language explicitly
+        recognition.current.lang = 'es-ES'; // Set language explicitly
       } catch (error) {
         console.error('Failed to initialize speech recognition:', error);
-        toast.error('Speech recognition initialization failed');
+        toast.error('Error en la inicialización del reconocimiento de voz');
       }
     }
   }, []);
@@ -168,7 +168,7 @@ export default function AiAssistant() {
     if (!sanitizedInput) return;
     
     if (!GEMINI_API_KEY) {
-      toast.error('API key not configured - contact administrator');
+      toast.error('Clave API no configurada - contacta al administrador');
       return;
     }
 
@@ -197,7 +197,7 @@ export default function AiAssistant() {
       setMessages([...newMessages, parsedResponse]);
     } catch (error) {
       console.error('Secure AI response error:', error);
-      toast.error('Failed to get AI response - please try again');
+      toast.error('Error al obtener respuesta de IA - por favor intenta de nuevo');
     } finally {
       setIsLoading(false);
     }
@@ -316,11 +316,11 @@ export default function AiAssistant() {
         ? text.slice(0, maxLength) + '... (text truncated for security)'
         : text;
       
-      setInput(`Please analyze this text: ${truncatedText}`);
-      toast.success('Document processed securely');
+      setInput(`Por favor analiza este texto: ${truncatedText}`);
+      toast.success('Documento procesado de forma segura');
     } catch (error) {
       console.error('Secure file processing error:', error);
-      toast.error(`Failed to process ${file.name} securely. Please try another file.`);
+      toast.error(`Error al procesar ${file.name}. Por favor intenta con otro archivo.`);
     } finally {
       setIsProcessingFile(false);
       if (fileInputRef.current) fileInputRef.current.value = '';
@@ -451,7 +451,7 @@ export default function AiAssistant() {
         <button
           onClick={handleCopy}
           className="absolute right-2 top-2 p-2 rounded bg-gray-800 text-white opacity-0 group-hover:opacity-100 transition-opacity"
-          title="Copy code"
+          title="Copiar código"
         >
           {copied ? <Check size={14} /> : <Copy size={14} />}
         </button>
@@ -556,21 +556,21 @@ export default function AiAssistant() {
         recognition.current.continuous = true;
         recognition.current.interimResults = true;
         recognition.current.maxAlternatives = 3;
-        recognition.current.lang = 'en-US';
+        recognition.current.lang = 'es-ES';
 
         recognition.current.onerror = (event: SpeechRecognitionErrorEvent) => {
           console.error('Speech recognition error:', event.error, event.message);
           
           const errorMessages: Record<SpeechRecognitionErrorEvent['error'], string> = {
-            'no-speech': 'No speech detected. Please try speaking again.',
-            'audio-capture': 'No microphone detected. Please check your microphone.',
-            'not-allowed': 'Microphone access denied. Please allow microphone access.',
-            'network': 'Network error occurred. Please check your connection.',
-            'aborted': 'Recording was aborted.',
-            'service-not-allowed': 'Speech recognition service is not allowed.'
+            'no-speech': 'No se detectó voz. Por favor intenta hablar de nuevo.',
+            'audio-capture': 'No se detectó micrófono. Por favor verifica tu micrófono.',
+            'not-allowed': 'Acceso al micrófono denegado. Por favor permite el acceso al micrófono.',
+            'network': 'Error de red. Por favor verifica tu conexión.',
+            'aborted': 'La grabación fue cancelada.',
+            'service-not-allowed': 'El servicio de reconocimiento de voz no está permitido.'
           };
 
-          const message = errorMessages[event.error] || 'Speech recognition error occurred';
+          const message = errorMessages[event.error] || 'Ocurrió un error en el reconocimiento de voz';
           toast.error(message);
           
           setIsRecording(false);
@@ -578,14 +578,14 @@ export default function AiAssistant() {
         };
       } catch (error) {
         console.error('Failed to initialize speech recognition:', error);
-        toast.error('Speech recognition initialization failed');
+        toast.error('Error en la inicialización del reconocimiento de voz');
       }
     }
   }, []);
 
   const toggleRecording = () => {
     if (!recognition.current) {
-      toast.error('Speech recognition is not supported in your browser');
+      toast.error('El reconocimiento de voz no es compatible con tu navegador');
       return;
     }
 
@@ -596,13 +596,13 @@ export default function AiAssistant() {
         const newText = (prev + ' ' + finalTranscript).trim();
         return processSpeechText(newText);
       });
-      toast.success('Recording stopped');
+      toast.success('Grabación detenida');
     } else {
       setInterimTranscript('');
       
       recognition.current.onstart = () => {
         setIsRecording(true);
-        toast.success('Recording started');
+        toast.success('Grabación iniciada');
       };
 
       recognition.current.onresult = (event: SpeechRecognitionEvent) => {
@@ -652,7 +652,7 @@ export default function AiAssistant() {
           });
         } catch (error) {
           console.error('Error processing speech recognition result:', error);
-          toast.error('Error processing speech. Please try again.');
+          toast.error('Error al procesar el habla. Por favor intenta de nuevo.');
         }
       };
 
@@ -665,7 +665,7 @@ export default function AiAssistant() {
           } catch (error) {
             console.error('Failed to restart recording:', error);
             setIsRecording(false);
-            toast.error('Speech recognition stopped unexpectedly');
+            toast.error('El reconocimiento de voz se detuvo inesperadamente');
           }
         } else {
           console.log('Speech recognition ended');
@@ -676,7 +676,7 @@ export default function AiAssistant() {
         recognition.current.start();
       } catch (error) {
         console.error('Failed to start recording:', error);
-        toast.error('Failed to start recording');
+        toast.error('Error al iniciar la grabación');
         setIsRecording(false);
       }
     }
@@ -690,7 +690,7 @@ export default function AiAssistant() {
       .trim();
       
     if (!completeText) {
-      toast.error('No text to save');
+      toast.error('No hay texto para guardar');
       return;
     }
     
@@ -698,7 +698,7 @@ export default function AiAssistant() {
       const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
       const safeFileName = `studymate-notes-${timestamp}.txt`.replace(/[^\w.-]/g, '');
       
-      const formattedText = `StudyMate Lecture Notes\nRecorded: ${new Date().toLocaleString()}\n\n${completeText}`;
+      const formattedText = `GestorAcadémico - Notas de Clase\nGrabado: ${new Date().toLocaleString()}\n\n${completeText}`;
       
       // Create and download file securely
       const blob = new Blob([formattedText], { type: 'text/plain;charset=utf-8' });
@@ -719,10 +719,10 @@ export default function AiAssistant() {
       setTranscribedText('');
       setFinalTranscript('');
       setInterimTranscript('');
-      toast.success('Notes saved securely');
+      toast.success('Notas guardadas de forma segura');
     } catch (error) {
       console.error('Secure save error:', error);
-      toast.error('Failed to save notes securely');
+      toast.error('Error al guardar las notas');
     }
   };
 
@@ -731,20 +731,20 @@ export default function AiAssistant() {
       <div className="flex items-center justify-between p-4 border-b dark:border-gray-700">
         <div className="flex items-center space-x-4">
           <Bot className="w-6 h-6 text-blue-500" />
-          <h1 className="text-xl font-semibold">AI Assistant</h1>
+          <h1 className="text-xl font-semibold">Asistente IA</h1>
         </div>
         <div className="flex items-center space-x-2">
           <button
             onClick={() => setMode('document')}
             className={`p-2 rounded-lg ${mode === 'document' ? 'bg-blue-100 dark:bg-blue-900' : 'hover:bg-gray-100 dark:hover:bg-gray-800'}`}
-            title="Upload Document"
+            title="Subir Documento"
           >
             <Upload className="w-5 h-5" />
           </button>
           <button
             onClick={() => setMode('transcribe')}
             className={`p-2 rounded-lg ${mode === 'transcribe' ? 'bg-blue-100 dark:bg-blue-900' : 'hover:bg-gray-100 dark:hover:bg-gray-800'}`}
-            title="Voice Input"
+            title="Entrada de Voz"
           >
             <Mic className="w-5 h-5" />
           </button>
@@ -766,12 +766,12 @@ export default function AiAssistant() {
                 {isRecording ? (
                   <>
                     <StopCircle className="w-5 h-5" />
-                    <span>Stop Recording</span>
+                    <span>Detener Grabación</span>
                   </>
                 ) : (
                   <>
                     <Mic className="w-5 h-5" />
-                    <span>Start Recording</span>
+                    <span>Iniciar Grabación</span>
                   </>
                 )}
               </button>
@@ -782,7 +782,7 @@ export default function AiAssistant() {
                   disabled={isProcessingFile || !(transcribedText || finalTranscript)}
                 >
                   <Save className="w-5 h-5" />
-                  <span>Save Notes</span>
+                  <span>Guardar Notas</span>
                 </button>
               )}
             </div>
@@ -821,17 +821,17 @@ export default function AiAssistant() {
             {isProcessingFile ? (
               <>
                 <Loader2 className="animate-spin" size={20} />
-                Processing...
+                Procesando...
               </>
             ) : (
               <>
                 <Upload size={20} />
-                Upload Document
+                Subir Documento
               </>
             )}
           </label>
           <p className="text-xs text-gray-500 mt-1">
-            Supported: PDF, DOCX, TXT (max 10MB)
+            Soportados: PDF, DOCX, TXT (máx 10MB)
           </p>
         </div>
       )}
@@ -861,7 +861,7 @@ export default function AiAssistant() {
             <div className="flex justify-start">
               <div className="bg-gray-100 dark:bg-gray-700 rounded-lg p-4 flex items-center gap-2">
                 <Loader2 className="animate-spin" size={16} />
-                <span>Thinking...</span>
+                <span>Pensando...</span>
               </div>
             </div>
           )}
@@ -873,7 +873,7 @@ export default function AiAssistant() {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyPress={(e) => e.key === 'Enter' && !e.shiftKey && handleSend()}
-            placeholder="Type your message..."
+            placeholder="Escribe tu mensaje..."
             className="flex-1 px-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
             disabled={isLoading}
           />
@@ -882,7 +882,7 @@ export default function AiAssistant() {
             disabled={isLoading || !input.trim()}
             className="px-4 py-2 bg-indigo-600 text-white rounded-lg hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            Send
+            Enviar
           </button>
         </div>
       </div>

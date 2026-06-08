@@ -49,11 +49,11 @@ export default function StudyTimer({ onSessionComplete, onStart, onStop }: Study
             setIsActive(false);
             onStop();
             playSound('work-complete');
-            showNotification('Study Session Complete! 🎉', `Great job! You studied for ${sessionMinutes} minutes.`);
+            showNotification('¡Sesión de Estudio Completada! 🎉', `¡Excelente trabajo! Estudiaste por ${sessionMinutes} minutos.`);
             toast.success(
               <div>
-                <p className="font-medium">Study session complete!</p>
-                <p className="text-sm">You studied for {Math.floor(sessionMinutes)} minutes 🎉</p>
+                <p className="font-medium">¡Sesión de estudio completada!</p>
+                <p className="text-sm">Estudiaste por {Math.floor(sessionMinutes)} minutos 🎉</p>
               </div>
             );
             onSessionComplete(25); // Default session length
@@ -99,11 +99,11 @@ export default function StudyTimer({ onSessionComplete, onStart, onStop }: Study
   return (
     <div>
       <div className="flex justify-between items-center mb-4">
-        <h3 className="text-gray-500">Study Timer</h3>
+        <h3 className="text-gray-500">Temporizador de Estudio</h3>
         <button
           onClick={() => setSoundEnabled(!soundEnabled)}
           className="p-2 text-gray-500 hover:text-gray-700 rounded-lg hover:bg-gray-100"
-          aria-label={soundEnabled ? 'Disable sound' : 'Enable sound'}
+          aria-label={soundEnabled ? 'Desactivar sonido' : 'Activar sonido'}
         >
           {soundEnabled ? <Volume2 size={20} /> : <VolumeX size={20} />}
         </button>
@@ -130,7 +130,7 @@ export default function StudyTimer({ onSessionComplete, onStart, onStop }: Study
 
       {sessionMinutes > 0 && (
         <div className="mt-4 text-center text-sm text-gray-500">
-          Current session: {Math.floor(sessionMinutes)} minutes
+          Sesión actual: {Math.floor(sessionMinutes)} minutos
         </div>
       )}
     </div>

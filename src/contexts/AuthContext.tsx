@@ -51,7 +51,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
       if (error) {
         if (error.message.includes('Invalid login credentials')) {
-          throw new Error('Invalid email or password');
+          throw new Error('Correo o contraseña inválidos');
         }
         throw error;
       }
@@ -59,7 +59,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       if (error instanceof Error) {
         toast.error(error.message);
       } else {
-        toast.error('An unexpected error occurred during login');
+        toast.error('Ocurrió un error inesperado durante el inicio de sesión');
       }
       throw error;
     }
@@ -68,11 +68,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const signup = async (email: string, password: string, name: string) => {
     try {
       if (!email || !password || !name) {
-        throw new Error('Please fill in all required fields');
+        throw new Error('Por favor completa todos los campos requeridos');
       }
 
       if (password.length < 6) {
-        throw new Error('Password must be at least 6 characters long');
+        throw new Error('La contraseña debe tener al menos 6 caracteres');
       }
 
       const { error } = await supabase.auth.signUp({
@@ -87,17 +87,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
       if (error) {
         if (error.message.includes('already registered')) {
-          throw new Error('This email is already registered');
+          throw new Error('Este correo ya está registrado');
         }
         throw error;
       }
 
-      toast.success('Please check your email to verify your account');
+      toast.success('Por favor revisa tu correo para verificar tu cuenta');
     } catch (error) {
       if (error instanceof Error) {
         toast.error(error.message);
       } else {
-        toast.error('An unexpected error occurred during signup');
+        toast.error('Ocurrió un error inesperado durante el registro');
       }
       throw error;
     }
@@ -118,7 +118,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   const resetPassword = async (email: string) => {
     try {
       if (!email) {
-        throw new Error('Please enter your email address');
+        throw new Error('Por favor ingresa tu correo electrónico');
       }
 
       const { error } = await supabase.auth.resetPasswordForEmail(email, {
@@ -127,17 +127,17 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
       if (error) {
         if (error.message.includes('Email not found')) {
-          throw new Error('No account found with this email address');
+          throw new Error('No se encontró una cuenta con este correo electrónico');
         }
         throw error;
       }
 
-      toast.success('Password reset instructions sent to your email');
+      toast.success('Instrucciones para restablecer la contraseña enviadas a tu correo');
     } catch (error) {
       if (error instanceof Error) {
         toast.error(error.message);
       } else {
-        toast.error('Failed to send password reset email');
+        toast.error('Error al enviar el correo de restablecimiento');
       }
       throw error;
     }
@@ -147,7 +147,7 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
     try {
       if (data.password) {
         if (data.password.length < 6) {
-          throw new Error('Password must be at least 6 characters long');
+          throw new Error('La contraseña debe tener al menos 6 caracteres');
         }
 
         const { error: passwordError } = await supabase.auth.updateUser({
@@ -165,12 +165,12 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
         if (nameError) throw nameError;
       }
 
-      toast.success('Profile updated successfully');
+      toast.success('Perfil actualizado exitosamente');
     } catch (error) {
       if (error instanceof Error) {
         toast.error(error.message);
       } else {
-        toast.error('Failed to update profile');
+        toast.error('Error al actualizar el perfil');
       }
       throw error;
     }

@@ -66,12 +66,12 @@ export default function SubjectManager({
       
       toast.success(
         <div className="flex items-center space-x-2">
-          <span>{selectedSubjects.size} subjects deleted</span>
+          <span>{selectedSubjects.size} materias eliminadas</span>
           <button
             onClick={handleUndoBulkDelete}
             className="px-2 py-1 text-sm bg-white rounded-md shadow-sm hover:bg-gray-50"
           >
-            Undo
+            Deshacer
           </button>
         </div>,
         { duration: 5000 }
@@ -80,7 +80,7 @@ export default function SubjectManager({
       setSelectedSubjects(new Set());
     } catch (error) {
       console.error('Error deleting subjects:', error);
-      toast.error('Failed to delete subjects');
+      toast.error('Error al eliminar las materias');
     }
   };
 
@@ -90,18 +90,18 @@ export default function SubjectManager({
     try {
       // Restore all deleted subjects
       await Promise.all(deletedSubjects.map(subject => onAddSubject(subject)));
-      toast.success('Subjects restored');
+      toast.success('Materias restauradas');
       setDeletedSubjects([]);
     } catch (error) {
       console.error('Error restoring subjects:', error);
-      toast.error('Failed to restore subjects');
+      toast.error('Error al restaurar las materias');
     }
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name) {
-      toast.error('Please enter a subject name');
+      toast.error('Por favor ingresa un nombre de materia');
       return;
     }
 
@@ -113,7 +113,7 @@ export default function SubjectManager({
     }
 
     setFormData({ name: '', color: COLORS[0], goalHoursPerWeek: 5 });
-    toast.success(editingId ? 'Subject updated' : 'Subject added');
+    toast.success(editingId ? 'Materia actualizada' : 'Materia añadida');
   };
 
   const handleEdit = (subject: Subject) => {
@@ -129,10 +129,10 @@ export default function SubjectManager({
     try {
       setIsDeleting(id);
       await onDeleteSubject(id);
-      toast.success('Subject deleted');
+      toast.success('Materia eliminada');
     } catch (error) {
       console.error('Error deleting subject:', error);
-      toast.error('Failed to delete subject');
+      toast.error('Error al eliminar la materia');
     } finally {
       setIsDeleting(null);
     }
@@ -142,7 +142,7 @@ export default function SubjectManager({
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
       <div className="bg-white rounded-xl max-w-md w-full p-6">
         <div className="flex justify-between items-center mb-6">
-          <h2 className="text-xl font-semibold">Manage Subjects</h2>
+          <h2 className="text-xl font-semibold">Gestionar Materias</h2>
           <button onClick={onClose} className="text-gray-500 hover:text-gray-700">
             <X size={20} />
           </button>
@@ -152,14 +152,14 @@ export default function SubjectManager({
           <div className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Subject Name
+                Nombre de la Materia
               </label>
               <input
                 type="text"
                 value={formData.name}
                 onChange={e => setFormData(prev => ({ ...prev, name: e.target.value }))}
                 className="w-full px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
-                placeholder="Enter subject name"
+                placeholder="Ingresa el nombre de la materia"
               />
             </div>
 
@@ -184,7 +184,7 @@ export default function SubjectManager({
 
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Weekly Goal (hours)
+                Meta Semanal (horas)
               </label>
               <input
                 type="number"
@@ -202,7 +202,7 @@ export default function SubjectManager({
               type="submit"
               className="w-full px-4 py-2 text-white bg-indigo-600 rounded-lg hover:bg-indigo-700"
             >
-              {editingId ? 'Update Subject' : 'Add Subject'}
+              {editingId ? 'Actualizar Materia' : 'Añadir Materia'}
             </button>
           </div>
         </form>
@@ -217,14 +217,14 @@ export default function SubjectManager({
                 className="w-4 h-4 text-blue-600"
               />
               <span className="text-sm text-gray-600 dark:text-gray-300">
-                {selectedSubjects.size} selected
+                {selectedSubjects.size} seleccionadas
               </span>
             </div>
             <button
               onClick={handleBulkDelete}
               className="px-3 py-1 text-sm text-white bg-red-500 hover:bg-red-600 rounded-md"
             >
-              Delete Selected
+              Eliminar Seleccionadas
             </button>
           </div>
         )}
