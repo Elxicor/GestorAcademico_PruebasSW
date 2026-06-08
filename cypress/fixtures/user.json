@@ -1,0 +1,80 @@
+{
+  "validUser": {
+    "email": "test@espe.edu.ec",
+    "password": "Password123!",
+    "name": "Estudiante Test"
+  },
+  "invalidUser": {
+    "email": "invalido@test.com",
+    "password": "wrong"
+  },
+  "subjects": [
+    { "id": "sub-1", "name": "Ingeniería de Software", "color": "#FF6B6B", "goalHoursPerWeek": 6 },
+    { "id": "sub-2", "name": "Base de Datos", "color": "#4ECDC4", "goalHoursPerWeek": 4 },
+    { "id": "sub-3", "name": "Redes", "color": "#45B7D1", "goalHoursPerWeek": 5 }
+  ],
+  "tasks": [
+    {
+      "id": "task-1",
+      "title": "Entregar proyecto final",
+      "description": "Proyecto de pruebas de software con Cypress",
+      "dueDate": "2026-06-30T00:00:00.000Z",
+      "priority": "high",
+      "completed": false,
+      "subject": "Ingeniería de Software",
+      "estimatedMinutes": 120
+    },
+    {
+      "id": "task-2",
+      "title": "Estudiar para parcial",
+      "description": "Repasar normalización y SQL avanzado",
+      "dueDate": "2026-06-20T00:00:00.000Z",
+      "priority": "medium",
+      "completed": false,
+      "subject": "Base de Datos",
+      "estimatedMinutes": 90
+    }
+  ],
+  "grades": [
+    {
+      "id": "grade-1",
+      "subject": "Ingeniería de Software",
+      "examName": "Parcial 1",
+      "score": 8.5,
+      "maxScore": 10,
+      "weight": 30,
+      "date": "2026-04-15"
+    },
+    {
+      "id": "grade-2",
+      "subject": "Base de Datos",
+      "examName": "Parcial 1",
+      "score": 7.0,
+      "maxScore": 10,
+      "weight": 30,
+      "date": "2026-04-16"
+    }
+  ],
+  "schedule": [
+    {
+      "id": "sch-1",
+      "subject": "Ingeniería de Software",
+      "day": "Lunes",
+      "startTime": "08:00",
+      "endTime": "10:00",
+      "classroom": "Aula 301",
+      "teacher": "Ing. García"
+    }
+  ],
+  "notes": [
+    {
+      "id": "note-1",
+      "title": "Resumen UML",
+      "content": "Los diagramas UML son fundamentales para el diseño de software...",
+      "subject": "Ingeniería de Software",
+      "tags": ["UML", "diseño", "resumen"],
+      "createdAt": "2026-03-10T10:00:00Z",
+      "updatedAt": "2026-03-10T10:00:00Z"
+    }
+  ]
+}

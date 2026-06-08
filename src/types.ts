@@ -80,3 +80,23 @@ export interface Achievement {
   description: string;
   earnedAt: string;
 }
+
+export interface Grade {
+  id: string;
+  subject: string;
+  examName: string;
+  score: number;
+  maxScore: number;
+  weight: number;
+  date: string;
+}
+
+export interface ScheduleEntry {
+  id: string;
+  subject: string;
+  day: 'Lunes' | 'Martes' | 'Miércoles' | 'Jueves' | 'Viernes';
+  startTime: string;
+  endTime: string;
+  classroom: string;
+  teacher: string;
+}

@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import { BarChart2, CheckSquare, Home, Book, Bot, User, LogOut } from 'lucide-react';
+import { BarChart2, CheckSquare, Home, Book, Bot, User, LogOut, Award, Calendar, FileText, GraduationCap } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import toast from 'react-hot-toast';
 
@@ -31,6 +31,10 @@ export default function Navbar() {
         <NavItem to="/" icon={<Home />} label="Inicio" isActive={isActive('/')} />
         <NavItem to="/tasks" icon={<CheckSquare />} label="Tareas" isActive={isActive('/tasks')} />
         <NavItem to="/subjects" icon={<Book />} label="Materias" isActive={isActive('/subjects')} />
+        <NavItem to="/grades" icon={<Award />} label="Calificaciones" isActive={isActive('/grades')} />
+        <NavItem to="/schedule" icon={<Calendar />} label="Horario" isActive={isActive('/schedule')} />
+        <NavItem to="/notes" icon={<FileText />} label="Apuntes" isActive={isActive('/notes')} />
+        <NavItem to="/gpa" icon={<GraduationCap />} label="Promedio GPA" isActive={isActive('/gpa')} />
         <NavItem to="/analytics" icon={<BarChart2 />} label="Estadísticas" isActive={isActive('/analytics')} />
         <NavItem to="/ai-assistant" icon={<Bot />} label="Asistente IA" isActive={isActive('/ai-assistant')} />
         <NavItem to="/profile" icon={<User />} label="Perfil" isActive={isActive('/profile')} />

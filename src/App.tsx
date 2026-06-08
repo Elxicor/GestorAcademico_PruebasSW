@@ -13,6 +13,10 @@ import Subjects from "./pages/Subjects";
 import Analytics from "./pages/Analytics";
 import AiAssistant from "./pages/AiAssistant";
 import Profile from "./pages/Profile";
+import Grades from "./pages/Grades";
+import Schedule from "./pages/Schedule";
+import Notes from "./pages/Notes";
+import GPA from "./pages/GPA";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import NotFound from "./pages/NotFound";
@@ -100,6 +104,38 @@ function App() {
                 element={
                   <PrivateRoute>
                     <Profile />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/grades"
+                element={
+                  <PrivateRoute>
+                    <Grades />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/schedule"
+                element={
+                  <PrivateRoute>
+                    <Schedule />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/notes"
+                element={
+                  <PrivateRoute>
+                    <Notes />
+                  </PrivateRoute>
+                }
+              />
+              <Route
+                path="/gpa"
+                element={
+                  <PrivateRoute>
+                    <GPA />
                   </PrivateRoute>
                 }
               />
