@@ -17,7 +17,6 @@ import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import NotFound from "./pages/NotFound";
 import LoadingSpinner from "./components/LoadingSpinner";
-import SocialWidget from "./components/SocialWidget";
 
 function PrivateRoute({ children }: { children: React.ReactNode }) {
   const { user, isLoading } = useAuth();
@@ -109,7 +108,6 @@ function App() {
           </div>
         </main>
       </div>
-      <SocialWidget />
       <Toaster
         position="bottom-right"
         containerStyle={{
