@@ -90,7 +90,7 @@ describe('Módulo de Materias', () => {
       cy.get('input[type="number"]').should('be.visible');
 
       // Cambiar la meta
-      cy.get('input[type="number"]').clear().type('8');
+      cy.get('input[type="number"]').type('{selectall}8');
       cy.get('input[type="number"]').should('have.value', '8');
     });
 

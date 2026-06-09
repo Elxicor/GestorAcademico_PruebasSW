@@ -3,13 +3,7 @@
 // para el sistema GestorAcadémico
 // ***********************************************
 
-/**
- * Comando: cy.mockSupabaseAuth()
- * Intercepta todas las llamadas de autenticación de Supabase
- * y simula un usuario autenticado, permitiendo navegar
- * la aplicación sin depender del backend real.
- */
-Cypress.Commands.add('mockSupabaseAuth', () => {
+Cypress.Commands.add('loginMock', () => {
   const fakeUser = {
     id: 'test-user-id-123',
     email: 'test@espe.edu.ec',
@@ -27,61 +21,28 @@ Cypress.Commands.add('mockSupabaseAuth', () => {
     user: fakeUser,
   };
 
-  // Interceptar la verificación de sesión de Supabase
-  cy.intercept('GET', '**/auth/v1/user', {
-    statusCode: 200,
-    body: fakeUser,
-  }).as('getUser');
+  // 1. Interceptar todas las llamadas de Supabase
+  cy.intercept('GET', '**/auth/v1/user', { statusCode: 200, body: fakeUser }).as('getUser');
+  cy.intercept('POST', '**/auth/v1/token*', { statusCode: 200, body: fakeSession }).as('getToken');
+  cy.intercept('GET', '**/rest/v1/**', { statusCode: 200, body: [] }).as('getRestData');
+  cy.intercept('POST', '**/rest/v1/**', { statusCode: 201, body: [{}] }).as('postRestData');
+  cy.intercept('PATCH', '**/rest/v1/**', { statusCode: 200, body: [{}] }).as('patchRestData');
+  cy.intercept('DELETE', '**/rest/v1/**', { statusCode: 200, body: [] }).as('deleteRestData');
 
-  cy.intercept('POST', '**/auth/v1/token*', {
-    statusCode: 200,
-    body: fakeSession,
-  }).as('getToken');
+  // 2. Realizar un login súper rápido a través de la UI. 
+  // Al estar interceptado 'getToken', cualquier credencial será aceptada por nuestro mock.
+  cy.visit('/login');
+  cy.get('#email').type('test@espe.edu.ec', { delay: 0 }); // delay: 0 escribe instantáneamente
+  cy.get('#password').type('TestPassword123!', { delay: 0 });
+  cy.get('button[type="submit"]').click();
 
-  // Interceptar llamada getSession
-  cy.intercept('GET', '**/rest/v1/**', {
-    statusCode: 200,
-    body: [],
-  }).as('getRestData');
-
-  cy.intercept('POST', '**/rest/v1/**', {
-    statusCode: 201,
-    body: [{}],
-  }).as('postRestData');
-
-  cy.intercept('PATCH', '**/rest/v1/**', {
-    statusCode: 200,
-    body: [{}],
-  }).as('patchRestData');
-
-  cy.intercept('DELETE', '**/rest/v1/**', {
-    statusCode: 200,
-    body: [],
-  }).as('deleteRestData');
-
-  // Simular la sesión en localStorage (formato Supabase v2)
-  const storageKey = `sb-yaiynnuupdcltwfvbgvd-auth-token`;
-  window.localStorage.setItem(storageKey, JSON.stringify({
-    currentSession: fakeSession,
-    expiresAt: Math.floor(Date.now() / 1000) + 3600,
-  }));
+  // 3. Esperar a que el Router de la aplicación haga la transición
+  // y confirme que ya NO estamos en la pantalla de login
+  cy.url().should('not.include', '/login');
 });
 
-/**
- * Comando: cy.loginMock()
- * Simula un login exitoso configurando el localStorage
- * y visitando la página principal.
- */
-Cypress.Commands.add('loginMock', () => {
-  cy.mockSupabaseAuth();
-  cy.visit('/');
-});
-
-/**
- * Comando: cy.setupLocalStorageData(key, data)
- * Configura datos en el localStorage para simular
- * estado previo (materias, tareas, etc.)
- */
 Cypress.Commands.add('setupLocalStorageData', (key, data) => {
-  window.localStorage.setItem(key, JSON.stringify(data));
+  cy.window().then((win) => {
+    win.localStorage.setItem(key, JSON.stringify(data));
+  });
 });

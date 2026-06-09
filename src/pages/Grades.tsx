@@ -219,7 +219,7 @@ export default function Grades() {
                 <X size={20} />
               </button>
             </div>
-            <form onSubmit={handleSubmit} className="space-y-4" data-cy="grade-form">
+            <form onSubmit={handleSubmit} className="space-y-4" data-cy="grade-form" noValidate>
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-1">Materia *</label>
                 <select
