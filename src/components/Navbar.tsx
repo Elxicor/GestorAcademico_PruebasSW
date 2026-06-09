@@ -15,33 +15,37 @@ export default function Navbar() {
   };
   
   return (
-    <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 px-4 py-2 z-30 md:top-0 md:bottom-auto md:right-auto md:h-screen md:w-64 md:border-t-0 md:border-r">
-      <div className="hidden md:flex md:items-center md:h-20 md:px-4">
+    <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-30 md:top-0 md:bottom-auto md:right-auto md:h-screen md:w-64 md:border-t-0 md:border-r md:flex md:flex-col">
+      <div className="hidden md:flex md:items-center md:h-20 md:px-4 md:shrink-0">
         <h1 className="text-2xl font-bold text-indigo-600">GestorAcadémico</h1>
       </div>
 
       {user && (
-        <div className="hidden md:block px-4 py-4 border-b">
-          <div className="font-medium">{user.user_metadata.name}</div>
+        <div className="hidden md:block px-4 py-4 border-b md:shrink-0">
+          <div className="font-medium">{user.user_metadata?.name || 'Usuario'}</div>
           <div className="text-sm text-gray-500">{user.email}</div>
         </div>
       )}
 
-      <ul className="flex justify-around md:flex-col md:space-y-2 md:mt-8">
-        <NavItem to="/" icon={<Home />} label="Inicio" isActive={isActive('/')} />
-        <NavItem to="/tasks" icon={<CheckSquare />} label="Tareas" isActive={isActive('/tasks')} />
-        <NavItem to="/subjects" icon={<Book />} label="Materias" isActive={isActive('/subjects')} />
-        <NavItem to="/grades" icon={<Award />} label="Calificaciones" isActive={isActive('/grades')} />
-        <NavItem to="/schedule" icon={<Calendar />} label="Horario" isActive={isActive('/schedule')} />
-        <NavItem to="/notes" icon={<FileText />} label="Apuntes" isActive={isActive('/notes')} />
-        <NavItem to="/gpa" icon={<GraduationCap />} label="Promedio GPA" isActive={isActive('/gpa')} />
-        <NavItem to="/analytics" icon={<BarChart2 />} label="Estadísticas" isActive={isActive('/analytics')} />
-        <NavItem to="/ai-assistant" icon={<Bot />} label="Asistente IA" isActive={isActive('/ai-assistant')} />
-        <NavItem to="/profile" icon={<User />} label="Perfil" isActive={isActive('/profile')} />
-      </ul>
+      {/* Contenedor con scroll para evitar que los items colisionen con el botón de logout */}
+      <div className="md:flex-1 md:overflow-y-auto">
+        <ul className="flex justify-around px-4 py-2 md:px-4 md:py-4 md:flex-col md:space-y-2">
+          <NavItem to="/" icon={<Home />} label="Inicio" isActive={isActive('/')} />
+          <NavItem to="/tasks" icon={<CheckSquare />} label="Tareas" isActive={isActive('/tasks')} />
+          <NavItem to="/subjects" icon={<Book />} label="Materias" isActive={isActive('/subjects')} />
+          <NavItem to="/grades" icon={<Award />} label="Calificaciones" isActive={isActive('/grades')} />
+          <NavItem to="/schedule" icon={<Calendar />} label="Horario" isActive={isActive('/schedule')} />
+          <NavItem to="/notes" icon={<FileText />} label="Apuntes" isActive={isActive('/notes')} />
+          <NavItem to="/gpa" icon={<GraduationCap />} label="Promedio GPA" isActive={isActive('/gpa')} />
+          <NavItem to="/analytics" icon={<BarChart2 />} label="Estadísticas" isActive={isActive('/analytics')} />
+          {/*<NavItem to="/ai-assistant" icon={<Bot />} label="Asistente IA" isActive={isActive('/ai-assistant')} />*/}
+          <NavItem to="/profile" icon={<User />} label="Perfil" isActive={isActive('/profile')} />
+        </ul>
+      </div>
 
+      {/* Botón de logout asegurado en la parte inferior */}
       {user && (
-        <div className="hidden md:block absolute bottom-8 left-0 right-0 px-4">
+        <div className="hidden md:block p-4 mt-auto border-t border-gray-200 md:shrink-0">
           <button
             onClick={handleLogout}
             className="flex items-center gap-3 w-full p-3 text-red-600 hover:bg-red-50 rounded-lg transition-colors"
