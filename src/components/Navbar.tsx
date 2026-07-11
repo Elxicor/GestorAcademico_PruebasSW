@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom';
-import { BarChart2, CheckSquare, Home, Book, Bot, User, LogOut, Award, Calendar, FileText, GraduationCap } from 'lucide-react';
+import { BarChart2, CheckSquare, Home, Book, User, LogOut, Award, Calendar, FileText, GraduationCap } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import toast from 'react-hot-toast';
 
