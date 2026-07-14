@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
 import { StudentProfile } from '../types';
-import { Trophy, User, Bell, Volume2, Save } from 'lucide-react';
+import { Trophy, User, Bell, Volume2, Save, LogOut } from 'lucide-react';
 import toast from 'react-hot-toast';
+import { useAuth } from '../contexts/AuthContext';
 import { getFromStorage, setToStorage } from '../utils/storage';
 import LoadingSpinner from '../components/LoadingSpinner';
 import { supabase } from '../lib/supabase';
@@ -41,6 +42,7 @@ export default function Profile() {
   const [profile, setProfile] = useState<StudentProfile>(defaultProfile);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const { logout } = useAuth();
 
   useEffect(() => {
     async function loadProfile() {
@@ -86,6 +88,16 @@ export default function Profile() {
     } catch (error) {
       console.error('Error saving profile:', error);
       toast.error('Error al guardar el perfil');
+    }
+  };
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      toast.success('Sesión cerrada exitosamente');
+    } catch (error) {
+      console.error('Error logging out:', error);
+      toast.error('Error al cerrar sesión');
     }
   };
 
@@ -302,6 +314,15 @@ export default function Profile() {
           >
             <Save size={20} />
             Guardar Cambios
+          </button>
+
+          <button
+            id="logout-button"
+            onClick={handleLogout}
+            className="w-full mt-4 flex items-center justify-center gap-2 bg-red-100 text-red-700 px-4 py-2 rounded-lg hover:bg-red-200 transition-colors"
+          >
+            <LogOut size={20} />
+            Cerrar Sesión
           </button>
         </div>
 
