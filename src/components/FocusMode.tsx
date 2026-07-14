@@ -43,18 +43,18 @@ export default function FocusMode({ isStudyActive }: FocusModeProps) {
     <div className="relative">
       <button
         onClick={toggleFocusMode}
-        className={`flex items-center gap-2 px-4 py-2 rounded-lg transition-colors ${
+        className={`flex items-center gap-1.5 sm:gap-2 px-3 sm:px-4 py-2 rounded-lg transition-colors text-sm ${
           isFocusMode
             ? 'bg-indigo-600 text-white'
             : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
         }`}
       >
-        <Focus size={20} />
-        Modo Enfoque
+        <Focus size={18} />
+        <span className="hidden sm:inline">Modo Enfoque</span>
       </button>
 
       {showNotification && (
-        <div className="fixed bottom-4 right-4 max-w-sm bg-white rounded-lg shadow-lg border p-4 animate-slide-up">
+        <div className="fixed bottom-4 right-4 max-w-sm bg-white rounded-lg shadow-lg border p-4 animate-slide-up z-40">
           <div className="flex items-start gap-3">
             <BellRing className="text-indigo-600" />
             <div className="flex-1">

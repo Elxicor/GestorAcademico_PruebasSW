@@ -189,7 +189,7 @@ export default function TaskList({ tasks, onTaskComplete, onDeleteTask, onEditTa
       )}
 
       <div className="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
-        <div className="grid grid-cols-[auto,1fr,auto,auto] gap-4 p-4 bg-gray-50 border-b border-gray-100">
+        <div className="hidden sm:grid sm:grid-cols-[auto,1fr,auto,auto] gap-4 p-4 bg-gray-50 border-b border-gray-100">
           <div className="w-8"></div>
           <button
             onClick={() => toggleSort('subject')}
@@ -213,60 +213,62 @@ export default function TaskList({ tasks, onTaskComplete, onDeleteTask, onEditTa
 
         <div className="divide-y divide-gray-100">
           {sortedTasks.map(task => (
-            <div 
+            <div
               key={task.id}
-              className={`flex items-center space-x-4 p-4 rounded-lg border ${
+              className={`p-4 ${
                 task.completed
-                  ? 'bg-gray-50 dark:bg-gray-800 border-gray-200 dark:border-gray-700'
-                  : 'bg-white dark:bg-gray-900 border-gray-200 dark:border-gray-700'
+                  ? 'bg-gray-50'
+                  : 'bg-white'
               }`}
             >
-              <input
-                type="checkbox"
-                checked={selectedTasks.has(task.id)}
-                onChange={() => toggleTaskSelection(task.id)}
-                className="w-4 h-4 text-blue-600"
-              />
-              <button 
-                onClick={() => onTaskComplete(task.id)}
-                className="text-gray-400 hover:text-indigo-600 transition-colors"
-              >
-                {task.completed ? <CheckCircle2 className="text-green-500" /> : <Circle />}
-              </button>
-              
-              <div>
-                <h3 className={`font-medium ${task.completed ? 'line-through text-gray-400' : ''}`}>
-                  {task.title}
-                </h3>
-                {task.description && (
-                  <p className="text-sm text-gray-500 mt-1">{task.description}</p>
-                )}
-                <div className="text-sm text-gray-500 mt-1">{task.subject}</div>
-              </div>
-
-              <div className="text-sm text-gray-500">
-                {format(new Date(task.dueDate), 'MMM d')}
-              </div>
-
-              <div className="flex items-center gap-2">
-                <Flag className={priorityColor[task.priority]} size={16} />
-                {onEditTask && (
-                  <button
-                    onClick={() => onEditTask(task)}
-                    className="p-1 hover:bg-gray-100 rounded-full"
-                  >
-                    <Pencil size={16} className="text-gray-500" />
-                  </button>
-                )}
+              {/* Mobile layout: vertical stack */}
+              <div className="flex items-start gap-3">
+                <input
+                  type="checkbox"
+                  checked={selectedTasks.has(task.id)}
+                  onChange={() => toggleTaskSelection(task.id)}
+                  className="w-4 h-4 text-blue-600 mt-1 flex-shrink-0"
+                />
                 <button
-                  onClick={() => handleDeleteTask(task.id)}
-                  disabled={isDeleting === task.id}
-                  className={`ml-4 p-2 rounded-lg text-gray-400 hover:text-red-500 hover:bg-red-50 dark:hover:bg-red-900 transition-colors ${
-                    isDeleting === task.id ? 'opacity-50 cursor-not-allowed' : ''
-                  }`}
+                  onClick={() => onTaskComplete(task.id)}
+                  className="text-gray-400 hover:text-indigo-600 transition-colors mt-0.5 flex-shrink-0"
                 >
-                  <Trash2 className="w-5 h-5" />
+                  {task.completed ? <CheckCircle2 className="text-green-500" size={20} /> : <Circle size={20} />}
                 </button>
+
+                <div className="flex-1 min-w-0">
+                  <h3 className={`font-medium text-sm ${task.completed ? 'line-through text-gray-400' : 'text-gray-900'}`}>
+                    {task.title}
+                  </h3>
+                  {task.description && (
+                    <p className="text-xs text-gray-500 mt-0.5 line-clamp-2">{task.description}</p>
+                  )}
+                  <div className="flex items-center gap-3 mt-1.5 flex-wrap">
+                    <span className="text-xs text-gray-400">{task.subject}</span>
+                    <span className="text-xs text-gray-400">{format(new Date(task.dueDate), 'MMM d')}</span>
+                    <Flag className={`${priorityColor[task.priority]}`} size={12} />
+                  </div>
+                </div>
+
+                <div className="flex items-center gap-1 flex-shrink-0">
+                  {onEditTask && (
+                    <button
+                      onClick={() => onEditTask(task)}
+                      className="p-1.5 hover:bg-gray-100 rounded-full"
+                    >
+                      <Pencil size={14} className="text-gray-500" />
+                    </button>
+                  )}
+                  <button
+                    onClick={() => handleDeleteTask(task.id)}
+                    disabled={isDeleting === task.id}
+                    className={`p-1.5 rounded-lg text-gray-400 hover:text-red-500 hover:bg-red-50 transition-colors ${
+                      isDeleting === task.id ? 'opacity-50 cursor-not-allowed' : ''
+                    }`}
+                  >
+                    <Trash2 size={14} />
+                  </button>
+                </div>
               </div>
             </div>
           ))}

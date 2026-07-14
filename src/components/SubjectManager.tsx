@@ -139,8 +139,8 @@ export default function SubjectManager({
   };
 
   return (
-    <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
-      <div className="bg-white rounded-xl max-w-md w-full p-6">
+    <div className="fixed inset-0 bg-black/50 flex items-end sm:items-center justify-center p-4 z-50">
+      <div className="bg-white rounded-t-2xl sm:rounded-xl max-w-md w-full p-6 max-h-[90vh] overflow-y-auto">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-xl font-semibold">Gestionar Materias</h2>
           <button onClick={onClose} className="text-gray-500 hover:text-gray-700">

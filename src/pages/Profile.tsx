@@ -109,50 +109,50 @@ export default function Profile() {
         {/* Profile Info */}
         <div className="md:col-span-2 space-y-6">
           <div className="bg-white p-6 rounded-xl shadow-sm border">
-            <div className="flex items-center gap-6 mb-6">
-              <div className="relative">
-                <div className="w-24 h-24 rounded-full bg-gray-200 overflow-hidden">
-                  {profile.avatar ? (
-                    <img 
-                      src={profile.avatar} 
-                      alt="Profile" 
-                      className="w-full h-full object-cover"
+            <div className="flex flex-col sm:flex-row sm:items-center gap-4 mb-6">
+                <div className="relative self-center">
+                  <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-full bg-gray-200 overflow-hidden">
+                    {profile.avatar ? (
+                      <img
+                        src={profile.avatar}
+                        alt="Profile"
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center text-gray-400">
+                        <User size={32} />
+                      </div>
+                    )}
+                  </div>
+                  <label className="absolute bottom-0 right-0 p-1 bg-indigo-600 rounded-full cursor-pointer text-white hover:bg-indigo-700">
+                    <Trophy size={14} />
+                    <input
+                      type="file"
+                      accept="image/*"
+                      className="hidden"
+                      onChange={handleAvatarChange}
                     />
-                  ) : (
-                    <div className="w-full h-full flex items-center justify-center text-gray-400">
-                      <User size={32} />
-                    </div>
-                  )}
+                  </label>
                 </div>
-                <label className="absolute bottom-0 right-0 p-1 bg-indigo-600 rounded-full cursor-pointer text-white hover:bg-indigo-700">
-                  <Trophy size={16} />
-                  <input
-                    type="file"
-                    accept="image/*"
-                    className="hidden"
-                    onChange={handleAvatarChange}
-                  />
-                </label>
-              </div>
 
-              <div className="flex-1">
-                <input
-                  type="text"
-                  value={profile.name}
-                  onChange={e => setProfile(prev => ({ ...prev, name: e.target.value }))}
-                  placeholder="Tu Nombre"
-                  className="w-full text-xl font-semibold mb-2 px-3 py-2 border rounded-lg"
-                />
-                <input
-                  type="email"
-                  value={profile.email}
-                  onChange={e => setProfile(prev => ({ ...prev, email: e.target.value }))}
-                  placeholder="your.email@example.com"
-                  className="w-full text-gray-600 px-3 py-2 border rounded-lg"
-                  readOnly
-                />
+                <div className="flex-1">
+                  <input
+                    type="text"
+                    value={profile.name}
+                    onChange={e => setProfile(prev => ({ ...prev, name: e.target.value }))}
+                    placeholder="Tu Nombre"
+                    className="w-full text-lg font-semibold mb-2 px-3 py-2 border rounded-lg"
+                  />
+                  <input
+                    type="email"
+                    value={profile.email}
+                    onChange={e => setProfile(prev => ({ ...prev, email: e.target.value }))}
+                    placeholder="your.email@example.com"
+                    className="w-full text-gray-600 px-3 py-2 border rounded-lg text-sm"
+                    readOnly
+                  />
+                </div>
               </div>
-            </div>
 
             <textarea
               value={profile.bio}

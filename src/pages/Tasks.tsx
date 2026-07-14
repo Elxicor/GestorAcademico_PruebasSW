@@ -109,16 +109,16 @@ export default function Tasks() {
 
   return (
     <div className="max-w-4xl mx-auto p-4">
-      <div className="flex justify-between items-center mb-8">
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 mb-6">
         <h1 className="text-2xl font-bold text-gray-900">Tareas</h1>
         <button
           onClick={() => {
             setEditingTask(null);
             setShowForm(true);
           }}
-          className="bg-indigo-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-indigo-700 transition-colors"
+          className="bg-indigo-600 text-white px-4 py-2.5 rounded-lg flex items-center justify-center gap-2 hover:bg-indigo-700 transition-colors text-sm font-medium"
         >
-          <Plus size={20} />
+          <Plus size={18} />
           Nueva Tarea
         </button>
       </div>

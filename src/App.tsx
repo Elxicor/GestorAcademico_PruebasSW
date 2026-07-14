@@ -45,7 +45,10 @@ function App() {
         {user && <Navbar />}
         <main
           className={`flex-1 ${
-            user ? "px-4 py-8 md:px-8 lg:px-12 md:ml-64" : ""
+            user
+              ? // Mobile: padding-top for header (h-14) only
+                "pt-14 px-4 md:pt-8 md:pb-8 md:px-8 lg:px-12 md:ml-64"
+              : ""
           }`}
         >
           <div className="max-w-7xl mx-auto">
@@ -145,10 +148,14 @@ function App() {
         </main>
       </div>
       <Toaster
-        position="bottom-right"
+        position="top-center"
         containerStyle={{
-          bottom: 40,
-          right: 40,
+          top: 20,
+        }}
+        toastOptions={{
+          style: {
+            maxWidth: '90vw',
+          }
         }}
       />
     </Router>

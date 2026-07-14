@@ -123,7 +123,7 @@ export default function Notes() {
 
   return (
     <div className="max-w-4xl mx-auto p-4">
-      <div className="flex justify-between items-center mb-8">
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 mb-6">
         <div className="flex items-center gap-3">
           <FileText className="text-indigo-600" size={28} />
           <h1 className="text-2xl font-bold text-gray-900">Apuntes</h1>
@@ -134,31 +134,31 @@ export default function Notes() {
             setFormData({ title: '', content: '', subject: '', tags: '' });
             setShowForm(true);
           }}
-          className="bg-indigo-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-indigo-700 transition-colors"
+          className="bg-indigo-600 text-white px-4 py-2.5 rounded-lg flex items-center justify-center gap-2 hover:bg-indigo-700 transition-colors text-sm font-medium"
           data-cy="btn-add-note"
         >
-          <Plus size={20} />
+          <Plus size={18} />
           Nuevo Apunte
         </button>
       </div>
 
       {/* Barra de búsqueda y filtros */}
-      <div className="flex gap-4 mb-6">
+      <div className="flex flex-col sm:flex-row gap-3 mb-6">
         <div className="flex-1 relative">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={20} />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
           <input
             type="text"
             value={searchQuery}
             onChange={e => setSearchQuery(e.target.value)}
-            placeholder="Buscar apuntes por título o contenido..."
-            className="w-full pl-10 pr-4 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+            placeholder="Buscar apuntes..."
+            className="w-full pl-10 pr-4 py-2.5 border rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm"
             data-cy="notes-search"
           />
         </div>
         <select
           value={filterSubject}
           onChange={e => setFilterSubject(e.target.value)}
-          className="px-3 py-2 border rounded-lg focus:ring-2 focus:ring-indigo-500"
+          className="px-3 py-2.5 border rounded-lg focus:ring-2 focus:ring-indigo-500 text-sm sm:w-48"
           data-cy="notes-filter-subject"
         >
           <option value="">Todas las materias</option>
@@ -248,8 +248,8 @@ export default function Notes() {
 
       {/* Modal de formulario */}
       {showForm && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-xl max-w-lg w-full p-6">
+        <div className="fixed inset-0 bg-black/50 flex items-end sm:items-center justify-center p-4 z-50">
+          <div className="bg-white rounded-t-2xl sm:rounded-xl max-w-lg w-full p-6 max-h-[90vh] overflow-y-auto">
             <div className="flex justify-between items-center mb-6">
               <h2 className="text-xl font-semibold">
                 {editingId ? 'Editar Apunte' : 'Nuevo Apunte'}

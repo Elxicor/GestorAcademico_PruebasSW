@@ -125,7 +125,7 @@ export default function Schedule() {
 
   return (
     <div className="max-w-6xl mx-auto p-4">
-      <div className="flex justify-between items-center mb-8">
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 mb-6">
         <div className="flex items-center gap-3">
           <Calendar className="text-indigo-600" size={28} />
           <h1 className="text-2xl font-bold text-gray-900">Horario de Clases</h1>
@@ -136,74 +136,128 @@ export default function Schedule() {
             setFormData({ subject: '', day: 'Lunes', startTime: '07:00', endTime: '08:00', classroom: '', teacher: '' });
             setShowForm(true);
           }}
-          className="bg-indigo-600 text-white px-4 py-2 rounded-lg flex items-center gap-2 hover:bg-indigo-700 transition-colors"
+          className="bg-indigo-600 text-white px-4 py-2.5 rounded-lg flex items-center justify-center gap-2 hover:bg-indigo-700 transition-colors text-sm font-medium"
           data-cy="btn-add-schedule"
         >
-          <Plus size={20} />
+          <Plus size={18} />
           Agregar Clase
         </button>
       </div>
 
-      {/* Vista de horario semanal */}
+      {/* Horario semanal */}
       {entries.length > 0 ? (
-        <div className="bg-white rounded-xl shadow-sm border border-gray-100 overflow-x-auto">
-          <table className="w-full min-w-[800px]" data-cy="schedule-table">
-            <thead className="bg-gray-50">
-              <tr>
-                {DAYS.map(day => (
-                  <th key={day} className="p-4 text-sm font-medium text-gray-600 text-center border-r last:border-r-0">
-                    {day}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                {DAYS.map(day => (
-                  <td key={day} className="p-2 align-top border-r last:border-r-0 min-w-[160px]">
-                    {getEntriesForDay(day).map(entry => (
-                      <div
-                        key={entry.id}
-                        className="mb-2 p-3 rounded-lg text-white text-sm relative group"
-                        style={{ backgroundColor: getSubjectColor(entry.subject) }}
-                        data-cy="schedule-entry"
-                      >
-                        <div className="font-semibold">{entry.subject}</div>
-                        <div className="opacity-90">{entry.startTime} - {entry.endTime}</div>
-                        <div className="opacity-80 text-xs mt-1">📍 {entry.classroom}</div>
-                        <div className="opacity-80 text-xs">👨‍🏫 {entry.teacher}</div>
-                        <div className="absolute top-1 right-1 hidden group-hover:flex gap-1">
-                          <button
-                            onClick={() => handleEdit(entry)}
-                            className="p-1 bg-white/30 rounded hover:bg-white/50"
-                            data-cy="btn-edit-schedule"
-                          >
-                            <Edit2 size={12} />
-                          </button>
-                          <button
-                            onClick={() => handleDelete(entry.id)}
-                            className="p-1 bg-white/30 rounded hover:bg-white/50"
-                            data-cy="btn-delete-schedule"
-                          >
-                            <Trash2 size={12} />
-                          </button>
+        <>
+          {/* Desktop: tabla con scroll horizontal */}
+          <div className="hidden sm:block bg-white rounded-xl shadow-sm border border-gray-100 overflow-x-auto">
+            <table className="w-full min-w-[640px]" data-cy="schedule-table">
+              <thead className="bg-gray-50">
+                <tr>
+                  {DAYS.map(day => (
+                    <th key={day} className="p-3 text-sm font-medium text-gray-600 text-center border-r last:border-r-0">
+                      {day}
+                    </th>
+                  ))}
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  {DAYS.map(day => (
+                    <td key={day} className="p-2 align-top border-r last:border-r-0 min-w-[120px]">
+                      {getEntriesForDay(day).map(entry => (
+                        <div
+                          key={entry.id}
+                          className="mb-2 p-2 rounded-lg text-white text-xs relative group"
+                          style={{ backgroundColor: getSubjectColor(entry.subject) }}
+                          data-cy="schedule-entry"
+                        >
+                          <div className="font-semibold text-sm">{entry.subject}</div>
+                          <div className="opacity-90">{entry.startTime} - {entry.endTime}</div>
+                          <div className="opacity-80 mt-1">📍 {entry.classroom}</div>
+                          <div className="opacity-80">👨‍🏫 {entry.teacher}</div>
+                          <div className="absolute top-1 right-1 hidden group-hover:flex gap-1">
+                            <button
+                              onClick={() => handleEdit(entry)}
+                              className="p-1 bg-white/30 rounded hover:bg-white/50"
+                              data-cy="btn-edit-schedule"
+                            >
+                              <Edit2 size={11} />
+                            </button>
+                            <button
+                              onClick={() => handleDelete(entry.id)}
+                              className="p-1 bg-white/30 rounded hover:bg-white/50"
+                              data-cy="btn-delete-schedule"
+                            >
+                              <Trash2 size={11} />
+                            </button>
+                          </div>
                         </div>
-                      </div>
-                    ))}
-                    {getEntriesForDay(day).length === 0 && (
-                      <div className="text-center text-gray-400 text-sm py-4">Sin clases</div>
-                    )}
-                  </td>
-                ))}
-              </tr>
-            </tbody>
-          </table>
-        </div>
+                      ))}
+                      {getEntriesForDay(day).length === 0 && (
+                        <div className="text-center text-gray-400 text-xs py-4">Sin clases</div>
+                      )}
+                    </td>
+                  ))}
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          {/* Mobile: lista por día */}
+          <div className="sm:hidden space-y-4" data-cy="schedule-table">
+            {DAYS.map(day => {
+              const dayEntries = getEntriesForDay(day);
+              return (
+                <div key={day}>
+                  <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-2">{day}</h3>
+                  {dayEntries.length > 0 ? (
+                    <div className="space-y-2">
+                      {dayEntries.map(entry => (
+                        <div
+                          key={entry.id}
+                          className="flex items-start gap-3 bg-white rounded-xl border border-gray-100 p-3 shadow-sm"
+                          data-cy="schedule-entry"
+                        >
+                          <div
+                            className="w-1 self-stretch rounded-full flex-shrink-0"
+                            style={{ backgroundColor: getSubjectColor(entry.subject) }}
+                          />
+                          <div className="flex-1 min-w-0">
+                            <div className="font-semibold text-sm text-gray-900">{entry.subject}</div>
+                            <div className="text-xs text-gray-500">{entry.startTime} - {entry.endTime}</div>
+                            <div className="text-xs text-gray-400 mt-0.5">📍 {entry.classroom} · 👨‍🏫 {entry.teacher}</div>
+                          </div>
+                          <div className="flex gap-1 flex-shrink-0">
+                            <button
+                              onClick={() => handleEdit(entry)}
+                              className="p-1.5 text-gray-400 hover:text-indigo-600 hover:bg-indigo-50 rounded-lg transition-colors"
+                              data-cy="btn-edit-schedule"
+                            >
+                              <Edit2 size={14} />
+                            </button>
+                            <button
+                              onClick={() => handleDelete(entry.id)}
+                              className="p-1.5 text-gray-400 hover:text-red-500 hover:bg-red-50 rounded-lg transition-colors"
+                              data-cy="btn-delete-schedule"
+                            >
+                              <Trash2 size={14} />
+                            </button>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="text-center py-3 text-gray-400 text-sm bg-white rounded-xl border border-gray-100">Sin clases</div>
+                  )}
+                </div>
+              );
+            })}
+          </div>
+        </>
       ) : (
         <div className="text-center py-12 bg-white rounded-xl border border-gray-100">
           <Calendar className="mx-auto text-gray-400 mb-4" size={48} />
           <h3 className="text-lg font-medium text-gray-900 mb-2">Aún no hay clases en el horario</h3>
-          <p className="text-gray-500">Agrega tus clases para organizar tu semana académica</p>
+          <p className="text-gray-500 text-sm px-4">Agrega tus clases para organizar tu semana académica</p>
         </div>
       )}
 
@@ -227,8 +281,8 @@ export default function Schedule() {
 
       {/* Modal de formulario */}
       {showForm && (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-xl max-w-md w-full p-6">
+        <div className="fixed inset-0 bg-black/50 flex items-end sm:items-center justify-center p-4 z-50">
+          <div className="bg-white rounded-t-2xl sm:rounded-xl max-w-md w-full p-6 max-h-[90vh] overflow-y-auto">
             <div className="flex justify-between items-center mb-6">
               <h2 className="text-xl font-semibold">
                 {editingId ? 'Editar Clase' : 'Agregar Clase'}
