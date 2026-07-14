@@ -15,7 +15,7 @@ export default function Navbar() {
   };
   
   return (
-    <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-30 md:top-0 md:bottom-auto md:right-auto md:h-screen md:w-64 md:border-t-0 md:border-r md:flex md:flex-col">
+    <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-30 overflow-x-auto md:top-0 md:bottom-auto md:right-auto md:h-screen md:w-64 md:border-t-0 md:border-r md:flex md:flex-col md:overflow-x-visible">
       <div className="hidden md:flex md:items-center md:h-20 md:px-4 md:shrink-0">
         <h1 className="text-2xl font-bold text-indigo-600">GestorAcadémico</h1>
       </div>
@@ -28,8 +28,8 @@ export default function Navbar() {
       )}
 
       {/* Contenedor con scroll para evitar que los items colisionen con el botón de logout */}
-      <div className="md:flex-1 md:overflow-y-auto">
-        <ul className="flex justify-around px-4 py-2 md:px-4 md:py-4 md:flex-col md:space-y-2">
+      <div className="md:flex-1 md:overflow-y-auto min-w-max md:min-w-0">
+        <ul className="flex justify-around gap-2 px-4 py-2 md:px-4 md:py-4 md:flex-col md:space-y-2 md:gap-0">
           <NavItem to="/" icon={<Home />} label="Inicio" isActive={isActive('/')} />
           <NavItem to="/tasks" icon={<CheckSquare />} label="Tareas" isActive={isActive('/tasks')} />
           <NavItem to="/subjects" icon={<Book />} label="Materias" isActive={isActive('/subjects')} />

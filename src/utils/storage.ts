@@ -36,8 +36,21 @@ export interface UserProfile {
   updated_at: string;
 }
 
-// Adaptador seguro para ignorar errores de TS por choque de versiones v1/v2
+// Detectar si estamos en Modo Mock/Prueba (sesión ficticia)
+function isMockMode(): boolean {
+  try {
+    const sessionStr = localStorage.getItem('sb-yaiynnuupdcltwfvbgvd-auth-token');
+    if (sessionStr) {
+      const session = JSON.parse(sessionStr);
+      return session?.access_token?.startsWith('fake-') || false;
+    }
+  } catch (e) {}
+  return false;
+}
+
+// Adaptador seguro para obtener el ID de usuario
 async function getUserId(): Promise<string | null> {
+  if (isMockMode()) return 'test-user-id-123';
   try {
     // @ts-ignore
     if (typeof supabase.auth.getUser === 'function') {
@@ -56,6 +69,15 @@ async function getUserId(): Promise<string | null> {
 // REDIRECCIÓN HÍBRIDA (Compatibilidad UI)
 // ==========================================
 export async function getFromStorage<T>(key: string, defaultValue: T): Promise<T> {
+  if (isMockMode()) {
+    try {
+      const val = localStorage.getItem(`local_${key}`);
+      return val ? JSON.parse(val) : defaultValue;
+    } catch (e) {
+      return defaultValue;
+    }
+  }
+
   try {
     const userId = await getUserId();
     if (!userId) return defaultValue;
@@ -98,6 +120,13 @@ export async function getFromStorage<T>(key: string, defaultValue: T): Promise<T
 }
 
 export async function setToStorage<T>(key: string, value: T): Promise<void> {
+  if (isMockMode()) {
+    try {
+      localStorage.setItem(`local_${key}`, JSON.stringify(value));
+    } catch (e) {}
+    return;
+  }
+
   try {
     const userId = await getUserId();
     if (!userId) throw new Error('User not authenticated');
@@ -149,6 +178,15 @@ export async function setToStorage<T>(key: string, value: T): Promise<void> {
 // TABLA: study_sessions
 // ==========================================
 export async function getStudySessions(): Promise<StudySession[]> {
+  if (isMockMode()) {
+    try {
+      const sessions = localStorage.getItem('local_study_sessions');
+      return sessions ? JSON.parse(sessions) : [];
+    } catch (e) {
+      return [];
+    }
+  }
+
   const userId = await getUserId();
   if (!userId) return [];
   const { data } = await supabase.from('study_sessions').select('*').eq('user_id', userId).order('created_at', { ascending: false });
@@ -159,6 +197,23 @@ export async function getStudySessions(): Promise<StudySession[]> {
 // TABLA: tasks
 // ==========================================
 export async function createTask(title: string, description?: string, dueDate?: string): Promise<Task> {
+  if (isMockMode()) {
+    const newTask: Task = {
+      id: crypto.randomUUID(),
+      user_id: 'test-user-id-123',
+      title,
+      description,
+      due_date: dueDate || new Date().toISOString(),
+      completed: false,
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString()
+    };
+    const tasks = await getTasks();
+    tasks.push(newTask);
+    localStorage.setItem('local_tasks', JSON.stringify(tasks));
+    return newTask;
+  }
+
   const userId = await getUserId();
   if (!userId) throw new Error('Unauthenticated');
   const { data, error } = await supabase.from('tasks').insert({
@@ -169,6 +224,15 @@ export async function createTask(title: string, description?: string, dueDate?: 
 }
 
 export async function getTasks(): Promise<Task[]> {
+  if (isMockMode()) {
+    try {
+      const tasks = localStorage.getItem('local_tasks');
+      return tasks ? JSON.parse(tasks) : [];
+    } catch (e) {
+      return [];
+    }
+  }
+
   const userId = await getUserId();
   if (!userId) return [];
   const { data } = await supabase.from('tasks').select('*').eq('user_id', userId).order('due_date', { ascending: true });
@@ -176,6 +240,16 @@ export async function getTasks(): Promise<Task[]> {
 }
 
 export async function updateTask(id: string, updates: Partial<Task>): Promise<Task> {
+  if (isMockMode()) {
+    const tasks = await getTasks();
+    const idx = tasks.findIndex(t => t.id === id);
+    if (idx === -1) throw new Error('Task not found');
+    const updated = { ...tasks[idx], ...updates, updated_at: new Date().toISOString() };
+    tasks[idx] = updated;
+    localStorage.setItem('local_tasks', JSON.stringify(tasks));
+    return updated;
+  }
+
   const userId = await getUserId();
   if (!userId) throw new Error('Unauthenticated');
   const { data, error } = await supabase.from('tasks').update({ ...updates, updated_at: new Date().toISOString() })
@@ -185,6 +259,13 @@ export async function updateTask(id: string, updates: Partial<Task>): Promise<Ta
 }
 
 export async function deleteTask(id: string): Promise<void> {
+  if (isMockMode()) {
+    const tasks = await getTasks();
+    const filtered = tasks.filter(t => t.id !== id);
+    localStorage.setItem('local_tasks', JSON.stringify(filtered));
+    return;
+  }
+
   const userId = await getUserId();
   if (!userId) throw new Error('Unauthenticated');
   await supabase.from('tasks').delete().eq('id', id).eq('user_id', userId);
